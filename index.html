@@ -1,15 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>DAILY NEWS</title>
+    <title>DAILY NEWS | Dark Edition</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <style>
-        body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
-        .feed-container { height: 750px; overflow-y: scroll; padding-right: 5px; }
-        .feed-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; }
+        /* Paleta de colores Dark */
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #e0e0e0;
+            --text-dim: #b0b0b0;
+            --border-color: #333;
+            --accent-blue: #1e3a5f;
+            --accent-red: #5f1e1e;
+            --accent-grey: #333333;
+            --accent-black: #000000;
+        }
+
+        body { background-color: var(--bg-color); color: var(--text-main); font-family: "Raleway", sans-serif; }
+        h1,h2,h3,h4,h5,h6 { font-family: "Raleway", sans-serif; color: var(--text-main); }
+        
+        .feed-container { height: 750px; overflow-y: scroll; padding-right: 5px; background-color: var(--card-bg); }
+        
+        /* Personalización de la barra de scroll para que sea oscura */
+        .feed-container::-webkit-scrollbar { width: 6px; }
+        .feed-container::-webkit-scrollbar-track { background: #1e1e1e; }
+        .feed-container::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
+
+        .feed-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
         
         .feed-thumbnail-container { 
             flex: 0 0 85px; 
@@ -17,70 +38,76 @@
             margin-right: 12px; 
             overflow: hidden; 
             border-radius: 4px; 
-            background: #fff; 
+            background: #fff; /* Mantenemos blanco para que los logos se vean bien */
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid #f0f0f0;
         }
         
-        .feed-thumbnail-container img { 
-            max-width: 90%; 
-            max-height: 90%; 
-            object-fit: contain; 
-        }
+        .feed-thumbnail-container img { max-width: 90%; max-height: 90%; object-fit: contain; }
 
         .feed-content-container { flex: 1; min-width: 0; }
         .feed-title { font-size: 14px; font-weight: bold; margin: 0 0 4px 0; line-height: 1.2; }
-        .feed-title a { text-decoration: none; color: #1a1a1a; }
-        .feed-title a:hover { color: #2196F3; }
+        .feed-title a { text-decoration: none; color: var(--text-main); }
+        .feed-title a:hover { color: #64b5f6; }
         
         .feed-meta { 
             font-size: 11px; 
-            color: #666; 
+            color: var(--text-dim); 
             display: flex; 
             justify-content: space-between; 
             align-items: center;
             width: 100%;
             margin-top: 5px;
         }
-        .source-tag { font-weight: 800; color: #444; text-transform: uppercase; }
-        .w3-container h3 { font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .source-tag { font-weight: 800; color: #90caf9; text-transform: uppercase; }
+        
+        /* Ajuste de tarjetas W3CSS a modo oscuro */
+        .w3-card-4 { background-color: var(--card-bg); border: 1px solid var(--border-color); box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        
+        /* Colores de cabeceras más sobrios */
+        .header-ciencia { background-color: #0d47a1 !important; }
+        .header-tech { background-color: #37474f !important; }
+        .header-juegos { background-color: #b71c1c !important; }
+        .header-cine { background-color: #121212 !important; border-bottom: 1px solid #333; }
+
+        .w3-container h3 { font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: white !important; }
     </style>
 </head>
-<body class="w3-light-grey">
+<body>
 
 <div class="w3-content" style="max-width:1800px">
 
 <header class="w3-container w3-center w3-padding-48"> 
-  <h1 style="font-weight: 900; letter-spacing: 2px;"><b>DAILY NEWS</b></h1>
+  <h1 style="font-weight: 900; letter-spacing: 3px;"><b>DAILY NEWS</b></h1>
+  <hr style="border-top: 1px solid #333; width: 100px; margin: auto;">
 </header>
 
 <div class="w3-row-padding">
   <div class="w3-col l3 m6 w3-margin-bottom">
-    <div class="w3-card-4 w3-white">
-      <div class="w3-container w3-blue"><h3 class="w3-center">Ciencia</h3></div>
+    <div class="w3-card-4">
+      <div class="w3-container header-ciencia"><h3 class="w3-center">Ciencia</h3></div>
       <div id="ciencia" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
     </div>
   </div>
 
   <div class="w3-col l3 m6 w3-margin-bottom">
-    <div class="w3-card-4 w3-white">
-      <div class="w3-container w3-dark-grey"><h3 class="w3-center">Tecnología</h3></div>
+    <div class="w3-card-4">
+      <div class="w3-container header-tech"><h3 class="w3-center">Tecnología</h3></div>
       <div id="tecnologia" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
     </div>
   </div>
 
   <div class="w3-col l3 m6 w3-margin-bottom">
-    <div class="w3-card-4 w3-white">
-      <div class="w3-container w3-red"><h3 class="w3-center">Videojuegos</h3></div>
+    <div class="w3-card-4">
+      <div class="w3-container header-juegos"><h3 class="w3-center">Videojuegos</h3></div>
       <div id="videojuegos" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
     </div>
   </div>
 
   <div class="w3-col l3 m6 w3-margin-bottom">
-    <div class="w3-card-4 w3-white">
-      <div class="w3-container w3-black"><h3 class="w3-center">Cine y TV</h3></div>
+    <div class="w3-card-4">
+      <div class="w3-container header-cine"><h3 class="w3-center">Cine y TV</h3></div>
       <div id="cine" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
     </div>
   </div>
@@ -103,27 +130,20 @@ const sourceData = {
     "ESPINOF": { keywords: ["ESPINOF"], name: "ESPINOF", logo: "https://yt3.googleusercontent.com/ytc/AIdro_mwyVcXPGLPElADFqCr5xP9g086XmBMYYYbOu9bVagVJc0=s900-c-k-c0x00ffffff-no-rj" }
 };
 
-// Función para formatear la fecha a "Hoy", "Ayer" o fecha estándar
 function formatSmartDate(dateStr) {
     const newsDate = new Date(dateStr);
     const today = new Date();
     const yesterday = new Date();
     yesterday.setDate(today.getDate() - 1);
-
     const timeStr = newsDate.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
 
-    if (newsDate.toDateString() === today.toDateString()) {
-        return `Hoy | ${timeStr}`;
-    } else if (newsDate.toDateString() === yesterday.toDateString()) {
-        return `Ayer | ${timeStr}`;
-    } else {
-        return `${newsDate.toLocaleDateString('es-ES')} | ${timeStr}`;
-    }
+    if (newsDate.toDateString() === today.toDateString()) return `Hoy | ${timeStr}`;
+    if (newsDate.toDateString() === yesterday.toDateString()) return `Ayer | ${timeStr}`;
+    return `${newsDate.toLocaleDateString('es-ES')} | ${timeStr}`;
 }
 
 async function loadCategoryFeeds(urls, elementId) {
     let allItems = [];
-    
     const fetchPromises = urls.map(url => 
         fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`)
         .then(res => res.json())
@@ -132,8 +152,7 @@ async function loadCategoryFeeds(urls, elementId) {
                 return data.items.map(item => {
                     let rawName = data.feed.title || "Fuente";
                     let finalName = rawName;
-                    let finalLogo = "https://via.placeholder.com/85?text=NEWS";
-
+                    let finalLogo = "";
                     for (let key in sourceData) {
                         const match = sourceData[key].keywords.some(k => rawName.toUpperCase().includes(k));
                         if (match) {
@@ -153,10 +172,8 @@ async function loadCategoryFeeds(urls, elementId) {
         const results = await Promise.all(fetchPromises);
         allItems = results.flat();
         allItems.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
-
         const container = document.getElementById(elementId);
         let html = '';
-        
         allItems.forEach(item => {
             html += `
                 <div class="feed-item">
