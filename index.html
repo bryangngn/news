@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>DAILY NEWS 2</title>
+    <title>DAILY NEWS</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -11,14 +11,13 @@
         .feed-container { height: 750px; overflow-y: scroll; padding-right: 5px; }
         .feed-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; }
         
-        /* Contenedor de imagen estática */
         .feed-thumbnail-container { 
             flex: 0 0 85px; 
             height: 85px; 
             margin-right: 12px; 
             overflow: hidden; 
             border-radius: 4px; 
-            background: #fff; /* Fondo blanco para logos con transparencia */
+            background: #fff; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -28,7 +27,7 @@
         .feed-thumbnail-container img { 
             max-width: 90%; 
             max-height: 90%; 
-            object-fit: contain; /* Mantiene el logo íntegro sin recortarlo */
+            object-fit: contain; 
         }
 
         .feed-content-container { flex: 1; min-width: 0; }
@@ -90,7 +89,6 @@
 </div>
 
 <script>
-// CONFIGURACIÓN DE FEEDS
 const config = {
     ciencia: ["https://www.agenciasinc.es/feed/Ciencia"],
     tecnologia: ["https://www.muycomputer.com/feed/"],
@@ -98,29 +96,30 @@ const config = {
     cine: ["https://www.espinof.com/feedburner.xml"]
 };
 
-// ASIGNACIÓN DE NOMBRES Y LOGOS ESTÁTICOS
 const sourceData = {
-    "SINC": {
-        keywords: ["AGENCIA SI", "SINC"],
-        name: "SINC",
-        logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgdzVETxx1l4z1lVDMKZCNIoeQaGUUVxbLNw&s"
-    },
-    "MUY COMPUTER": {
-        keywords: ["MUYCOMPUTE", "MUYCOMPUTER"],
-        name: "MUY COMPUTER",
-        logo: "https://www.tpnet.es/wp-content/uploads/2018/09/mc-tecnologia-consumo-content-marketing-video-design-logo.png"
-    },
-    "3D JUEGOS": {
-        keywords: ["3DJUEGOS"],
-        name: "3D JUEGOS",
-        logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4TkCVZaSxmfU-e__gEatDsmp7U8QMTsIFug&s"
-    },
-    "ESPINOF": {
-        keywords: ["ESPINOF"],
-        name: "ESPINOF",
-        logo: "https://yt3.googleusercontent.com/ytc/AIdro_mwyVcXPGLPElADFqCr5xP9g086XmBMYYYbOu9bVagVJc0=s900-c-k-c0x00ffffff-no-rj"
-    }
+    "SINC": { keywords: ["AGENCIA SI", "SINC"], name: "SINC", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgdzVETxx1l4z1lVDMKZCNIoeQaGUUVxbLNw&s" },
+    "MUY COMPUTER": { keywords: ["MUYCOMPUTE", "MUYCOMPUTER"], name: "MUY COMPUTER", logo: "https://www.tpnet.es/wp-content/uploads/2018/09/mc-tecnologia-consumo-content-marketing-video-design-logo.png" },
+    "3D JUEGOS": { keywords: ["3DJUEGOS"], name: "3D JUEGOS", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4TkCVZaSxmfU-e__gEatDsmp7U8QMTsIFug&s" },
+    "ESPINOF": { keywords: ["ESPINOF"], name: "ESPINOF", logo: "https://yt3.googleusercontent.com/ytc/AIdro_mwyVcXPGLPElADFqCr5xP9g086XmBMYYYbOu9bVagVJc0=s900-c-k-c0x00ffffff-no-rj" }
 };
+
+// Función para formatear la fecha a "Hoy", "Ayer" o fecha estándar
+function formatSmartDate(dateStr) {
+    const newsDate = new Date(dateStr);
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
+
+    const timeStr = newsDate.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+
+    if (newsDate.toDateString() === today.toDateString()) {
+        return `Hoy | ${timeStr}`;
+    } else if (newsDate.toDateString() === yesterday.toDateString()) {
+        return `Ayer | ${timeStr}`;
+    } else {
+        return `${newsDate.toLocaleDateString('es-ES')} | ${timeStr}`;
+    }
+}
 
 async function loadCategoryFeeds(urls, elementId) {
     let allItems = [];
@@ -135,7 +134,6 @@ async function loadCategoryFeeds(urls, elementId) {
                     let finalName = rawName;
                     let finalLogo = "https://via.placeholder.com/85?text=NEWS";
 
-                    // Identificar fuente y asignar su logo estático
                     for (let key in sourceData) {
                         const match = sourceData[key].keywords.some(k => rawName.toUpperCase().includes(k));
                         if (match) {
@@ -160,10 +158,6 @@ async function loadCategoryFeeds(urls, elementId) {
         let html = '';
         
         allItems.forEach(item => {
-            const dateObj = new Date(item.pubDate);
-            const dateStr = dateObj.toLocaleDateString('es-ES');
-            const timeStr = dateObj.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-            
             html += `
                 <div class="feed-item">
                     <div class="feed-thumbnail-container">
@@ -175,7 +169,7 @@ async function loadCategoryFeeds(urls, elementId) {
                         </h6>
                         <div class="feed-meta">
                             <span class="source-tag">${item.sourceName}</span>
-                            <span>${dateStr} | ${timeStr}</span>
+                            <span>${formatSmartDate(item.pubDate)}</span>
                         </div>
                     </div>
                 </div>`;
