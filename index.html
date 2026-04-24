@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Dashboard Multifeed: Ciencia, Tech, Juegos y Cine</title>
+    <title>Dashboard Noticias Pro</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -9,15 +9,16 @@
     <style>
         body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
         .feed-container { height: 750px; overflow-y: scroll; padding-right: 5px; }
-        .feed-item { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
-        .feed-thumbnail-container { flex: 0 0 80px; height: 80px; margin-right: 12px; overflow: hidden; border-radius: 4px; background: #eee; }
+        .feed-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; }
+        .feed-thumbnail-container { flex: 0 0 85px; height: 85px; margin-right: 12px; overflow: hidden; border-radius: 4px; background: #ddd; }
         .feed-thumbnail-container img { width: 100%; height: 100%; object-fit: cover; }
         .feed-content-container { flex: 1; }
-        .feed-title { font-size: 14px; font-weight: bold; margin: 0 0 4px 0; line-height: 1.3; }
-        .feed-title a { text-decoration: none; color: black; }
+        .feed-title { font-size: 14px; font-weight: bold; margin: 0 0 4px 0; line-height: 1.2; }
+        .feed-title a { text-decoration: none; color: #1a1a1a; }
         .feed-title a:hover { color: #2196F3; }
-        .feed-meta { font-size: 11px; color: #757575; }
-        .source-tag { background: #e0e0e0; padding: 2px 5px; border-radius: 3px; margin-right: 5px; text-transform: uppercase; font-weight: bold; }
+        .feed-meta { font-size: 11px; color: #666; display: flex; align-items: center; gap: 8px; }
+        .source-tag { font-weight: 800; color: #444; text-transform: uppercase; }
+        .w3-container h3 { font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
     </style>
 </head>
 <body class="w3-light-grey">
@@ -25,92 +26,81 @@
 <div class="w3-content" style="max-width:1800px">
 
 <header class="w3-container w3-center w3-padding-32"> 
-  <h1><b>NOTICIAS DEL DÍA</b></h1>
-  <p>Tu hub de información <span class="w3-tag w3-blue">Ciencia</span> <span class="w3-tag w3-dark-grey">Tecnología</span> <span class="w3-tag w3-red">Videojuegos</span> <span class="w3-tag w3-black">Cine y TV</span></p>
+  <h1><b>NOTICIAS ACTUALIZADAS</b></h1>
+  <p>Tu selección de <span class="w3-tag w3-blue">Ciencia</span> <span class="w3-tag w3-dark-grey">Tecnología</span> <span class="w3-tag w3-red">Videojuegos</span> <span class="w3-tag w3-black">Cine y TV</span></p>
 </header>
 
 <div class="w3-row-padding">
-
   <div class="w3-col l3 m6 w3-margin-bottom">
     <div class="w3-card-4 w3-white">
-      <div class="w3-container w3-blue text-center">
-        <h3 class="w3-center">Ciencia</h3>
-      </div>
-      <div id="ciencia" class="w3-container feed-container">
-        <p class="w3-padding">Cargando feeds de ciencia...</p>
-      </div>
+      <div class="w3-container w3-blue"><h3 class="w3-center">Ciencia</h3></div>
+      <div id="ciencia" class="w3-container feed-container"><p class="w3-padding">Actualizando...</p></div>
     </div>
   </div>
 
   <div class="w3-col l3 m6 w3-margin-bottom">
     <div class="w3-card-4 w3-white">
-      <div class="w3-container w3-dark-grey">
-        <h3 class="w3-center">Tecnología</h3>
-      </div>
-      <div id="tecnologia" class="w3-container feed-container">
-        <p class="w3-padding">Cargando feeds de tecnología...</p>
-      </div>
+      <div class="w3-container w3-dark-grey"><h3 class="w3-center">Tecnología</h3></div>
+      <div id="tecnologia" class="w3-container feed-container"><p class="w3-padding">Actualizando...</p></div>
     </div>
   </div>
 
   <div class="w3-col l3 m6 w3-margin-bottom">
     <div class="w3-card-4 w3-white">
-      <div class="w3-container w3-red">
-        <h3 class="w3-center">Videojuegos</h3>
-      </div>
-      <div id="videojuegos" class="w3-container feed-container">
-        <p class="w3-padding">Cargando feeds de videojuegos...</p>
-      </div>
+      <div class="w3-container w3-red"><h3 class="w3-center">Videojuegos</h3></div>
+      <div id="videojuegos" class="w3-container feed-container"><p class="w3-padding">Actualizando...</p></div>
     </div>
   </div>
 
   <div class="w3-col l3 m6 w3-margin-bottom">
     <div class="w3-card-4 w3-white">
-      <div class="w3-container w3-black">
-        <h3 class="w3-center">Cine y TV</h3>
-      </div>
-      <div id="cine" class="w3-container feed-container">
-        <p class="w3-padding">Cargando feeds de cine...</p>
-      </div>
+      <div class="w3-container w3-black"><h3 class="w3-center">Cine y TV</h3></div>
+      <div id="cine" class="w3-container feed-container"><p class="w3-padding">Actualizando...</p></div>
     </div>
   </div>
-
 </div>
-
-<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top w3-center">
-  <p>Dashboard Personalizado | 2026</p>
-</footer>
 
 </div>
 
 <script>
-// CONFIGURACIÓN: Añade aquí tantas URLs como quieras por columna
+// CONFIGURACIÓN DE FEEDS
 const config = {
-    ciencia: [
-        "https://www.agenciasinc.es/feed/Ciencia"
-    ],
-    tecnologia: [
-        "https://www.muycomputer.com/feed/"
-    ],
-    videojuegos: [
-        "https://www.3djuegos.com/feedburner.xml"
-    ],
-    cine: [
-        "https://www.espinof.com/feedburner.xml"
-    ]
+    ciencia: ["https://www.agenciasinc.es/feed/Ciencia"],
+    tecnologia: ["https://www.muycomputer.com/feed/"],
+    videojuegos: ["https://www.3djuegos.com/feedburner.xml"],
+    cine: ["https://www.espinof.com/feedburner.xml"]
+};
+
+// MAPEO DE NOMBRES DE FUENTE
+const sourceNames = {
+    "Agencia SI": "SINC",
+    "Agencia SINC": "SINC",
+    "MUYCOMPUTE": "MUY COMPUTER",
+    "MuyComputer": "MUY COMPUTER",
+    "3DJUEGOS": "3D JUEGOS",
+    "Espinof": "ESPINOF"
 };
 
 async function loadCategoryFeeds(urls, elementId) {
     let allItems = [];
     
-    // 1. Obtener datos de todos los feeds de la categoría
     const fetchPromises = urls.map(url => 
         fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`)
         .then(res => res.json())
         .then(data => {
             if(data.status === 'ok') {
-                // Añadimos el nombre de la fuente a cada item
-                return data.items.map(item => ({...item, sourceName: data.feed.title}));
+                return data.items.map(item => {
+                    // Limpiar y traducir el nombre de la fuente
+                    let rawName = data.feed.title || "Fuente";
+                    let cleanName = rawName.split(' - ')[0].trim();
+                    for (let key in sourceNames) {
+                        if (rawName.toUpperCase().includes(key.toUpperCase())) {
+                            cleanName = sourceNames[key];
+                            break;
+                        }
+                    }
+                    return {...item, sourceName: cleanName};
+                });
             }
             return [];
         })
@@ -120,43 +110,41 @@ async function loadCategoryFeeds(urls, elementId) {
         const results = await Promise.all(fetchPromises);
         allItems = results.flat();
 
-        // 2. Ordenar por fecha (más nuevo primero)
+        // Ordenar por fecha y hora (más nuevo primero)
         allItems.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
 
-        // 3. Renderizar
         const container = document.getElementById(elementId);
-        if (allItems.length === 0) {
-            container.innerHTML = "<p class='w3-padding'>No hay noticias disponibles.</p>";
-            return;
-        }
-
         let html = '';
+        
         allItems.forEach(item => {
-            const thumb = item.thumbnail || 'https://via.placeholder.com/80?text=News';
+            const dateObj = new Date(item.pubDate);
+            const dateStr = dateObj.toLocaleDateString('es-ES');
+            const timeStr = dateObj.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+            
+            const thumb = item.thumbnail || 'https://via.placeholder.com/85?text=NEWS';
+            
             html += `
                 <div class="feed-item">
                     <div class="feed-thumbnail-container">
-                        <img src="${thumb}" alt="img">
+                        <img src="${thumb}" alt="noticia">
                     </div>
                     <div class="feed-content-container">
                         <h6 class="feed-title">
                             <a href="${item.link}" target="_blank">${item.title}</a>
                         </h6>
                         <div class="feed-meta">
-                            <span class="source-tag">${item.sourceName.substring(0, 10)}</span>
-                            <span>${new Date(item.pubDate).toLocaleDateString('es-ES')}</span>
+                            <span class="source-tag">${item.sourceName}</span>
+                            <span>${dateStr} | ${timeStr}</span>
                         </div>
                     </div>
                 </div>`;
         });
         container.innerHTML = html;
-
     } catch (err) {
-        document.getElementById(elementId).innerHTML = "<p class='w3-padding'>Error cargando feeds.</p>";
+        document.getElementById(elementId).innerHTML = "<p class='w3-padding'>Error de red.</p>";
     }
 }
 
-// Inicialización
 window.onload = () => {
     loadCategoryFeeds(config.ciencia, 'ciencia');
     loadCategoryFeeds(config.tecnologia, 'tecnologia');
