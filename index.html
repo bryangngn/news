@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>DAILY NEWS nogoo</title>
+    <title>DAILY NEWS movil</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -19,83 +19,105 @@
             --header-cine: #000000;
         }
 
-        body { background-color: var(--bg-color); color: var(--text-main); font-family: "Raleway", sans-serif; }
-        h1,h2,h3,h4,h5,h6 { font-family: "Raleway", sans-serif; color: var(--text-main); }
+        body { background-color: var(--bg-color); color: var(--text-main); font-family: "Raleway", sans-serif; margin-bottom: 70px; }
         
-        .feed-container { height: 750px; overflow-y: scroll; padding-right: 5px; background-color: var(--card-bg); }
-        .feed-container::-webkit-scrollbar { width: 6px; }
-        .feed-container::-webkit-scrollbar-track { background: #1e1e1e; }
+        /* Ajuste de scroll para móvil y PC */
+        .feed-container { height: 75vh; overflow-y: scroll; padding-right: 5px; background-color: var(--card-bg); }
+        @media (max-width: 600px) { .feed-container { height: calc(100vh - 220px); } }
+
+        .feed-container::-webkit-scrollbar { width: 4px; }
         .feed-container::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
 
         .feed-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
         
         .feed-thumbnail-container { 
-            flex: 0 0 85px; 
-            height: 85px; 
-            margin-right: 12px; 
-            overflow: hidden; 
-            border-radius: 4px; 
-            background: #fff; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #333;
+            flex: 0 0 70px; height: 70px; margin-right: 12px; 
+            overflow: hidden; border-radius: 4px; background: #fff; 
+            display: flex; align-items: center; justify-content: center;
         }
-        
         .feed-thumbnail-container img { max-width: 85%; max-height: 85%; object-fit: contain; }
 
         .feed-content-container { flex: 1; min-width: 0; }
-        .feed-title { font-size: 14px; font-weight: bold; margin: 0 0 4px 0; line-height: 1.2; }
+        .feed-title { font-size: 13px; font-weight: bold; margin: 0 0 4px 0; line-height: 1.2; }
         .feed-title a { text-decoration: none; color: var(--text-main); }
-        .feed-title a:hover { color: #64b5f6; }
         
         .feed-meta { 
-            font-size: 10px; 
-            color: var(--text-dim); 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            width: 100%;
-            margin-top: 5px;
+            font-size: 10px; color: var(--text-dim); 
+            display: flex; justify-content: space-between; width: 100%;
         }
-        .source-tag { font-weight: 800; color: #90caf9; text-transform: uppercase; max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .source-tag { font-weight: 800; color: #90caf9; text-transform: uppercase; }
         
-        .w3-card-4 { background-color: var(--card-bg); border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .w3-container h3 { font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: white !important; margin: 15px 0; }
+        .w3-card-4 { background-color: var(--card-bg); border: none; }
+        .w3-container h3 { font-weight: bold; text-transform: uppercase; font-size: 16px; margin: 15px 0; }
+
+        /* NAVEGACIÓN MÓVIL (TABS) */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #1e1e1e;
+            border-top: 1px solid #333;
+            z-index: 1000;
+        }
+
+        .mobile-nav button {
+            flex: 1;
+            padding: 15px 0;
+            border: none;
+            background: none;
+            color: var(--text-dim);
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .mobile-nav button.active {
+            color: #fff;
+            border-top: 3px solid #2196F3;
+            background: #252525;
+        }
+
+        @media (max-width: 992px) {
+            .mobile-nav { display: flex; }
+            .category-col { display: none; } /* Ocultar todas por defecto en móvil */
+            .category-col.active { display: block; } /* Mostrar solo la activa */
+            header { padding: 20px 0 !important; }
+        }
     </style>
 </head>
 <body>
 
 <div class="w3-content" style="max-width:1800px">
 
-<header class="w3-container w3-center w3-padding-48"> 
-  <h1 style="font-weight: 900; letter-spacing: 3px;"><b>DAILY NEWS</b></h1>
-  <hr style="border-top: 1px solid #333; width: 100px; margin: auto;">
+<header class="w3-container w3-center w3-padding-32"> 
+  <h1 style="font-weight: 900; letter-spacing: 3px; font-size: 24px;"><b>DAILY NEWS</b></h1>
 </header>
 
 <div class="w3-row-padding">
-  <div class="w3-col l3 m6 w3-margin-bottom">
+  <div id="col-ciencia" class="w3-col l3 m12 category-col active w3-margin-bottom">
     <div class="w3-card-4">
       <div class="w3-container" style="background-color: var(--header-ciencia)"><h3 class="w3-center">Ciencia</h3></div>
       <div id="ciencia" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
     </div>
   </div>
 
-  <div class="w3-col l3 m6 w3-margin-bottom">
+  <div id="col-tecnologia" class="w3-col l3 m12 category-col w3-margin-bottom">
     <div class="w3-card-4">
       <div class="w3-container" style="background-color: var(--header-tech)"><h3 class="w3-center">Tecnología</h3></div>
       <div id="tecnologia" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
     </div>
   </div>
 
-  <div class="w3-col l3 m6 w3-margin-bottom">
+  <div id="col-videojuegos" class="w3-col l3 m12 category-col w3-margin-bottom">
     <div class="w3-card-4">
       <div class="w3-container" style="background-color: var(--header-juegos)"><h3 class="w3-center">Videojuegos</h3></div>
       <div id="videojuegos" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
     </div>
   </div>
 
-  <div class="w3-col l3 m6 w3-margin-bottom">
+  <div id="col-cine" class="w3-col l3 m12 category-col w3-margin-bottom">
     <div class="w3-card-4">
       <div class="w3-container" style="background-color: var(--header-cine)"><h3 class="w3-center">Cine y TV</h3></div>
       <div id="cine" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
@@ -103,6 +125,13 @@
   </div>
 </div>
 </div>
+
+<nav class="mobile-nav">
+  <button onclick="openTab('ciencia')" id="btn-ciencia" class="active">Ciencia</button>
+  <button onclick="openTab('tecnologia')" id="btn-tecnologia">Tech</button>
+  <button onclick="openTab('videojuegos')" id="btn-videojuegos">Juegos</button>
+  <button onclick="openTab('cine')" id="btn-cine">Cine</button>
+</nav>
 
 <script>
 const config = {
@@ -118,6 +147,24 @@ const sourceData = {
     "3D JUEGOS": { keywords: ["3DJUEGOS"], name: "3D JUEGOS", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4TkCVZaSxmfU-e__gEatDsmp7U8QMTsIFug&s" },
     "ESPINOF": { keywords: ["ESPINOF"], name: "ESPINOF", logo: "https://yt3.googleusercontent.com/ytc/AIdro_mwyVcXPGLPElADFqCr5xP9g086XmBMYYYbOu9bVagVJc0=s900-c-k-c0x00ffffff-no-rj" }
 };
+
+// Lógica de Pestañas Móviles
+function openTab(catName) {
+    if (window.innerWidth > 992) return; // Solo funciona en móvil/tablet
+    
+    // Ocultar todas las columnas
+    const cols = document.getElementsByClassName("category-col");
+    for (let i = 0; i < cols.length; i++) { cols[i].classList.remove("active"); }
+    
+    // Desactivar botones
+    const btns = document.querySelectorAll(".mobile-nav button");
+    btns.forEach(btn => btn.classList.remove("active"));
+    
+    // Activar seleccionada
+    document.getElementById("col-" + catName).classList.add("active");
+    document.getElementById("btn-" + catName).classList.add("active");
+    window.scrollTo(0,0);
+}
 
 function formatSmartDate(dateStr) {
     const newsDate = new Date(dateStr);
@@ -141,7 +188,6 @@ async function loadCategoryFeeds(urls, elementId) {
                     let rawSource = (data.feed.title || "").toUpperCase();
                     let finalName = "INFO";
                     let finalLogo = "https://via.placeholder.com/85/333/fff?text=NEWS";
-                    
                     for (let key in sourceData) {
                         if (sourceData[key].keywords.some(k => rawSource.includes(k))) {
                             finalName = sourceData[key].name;
