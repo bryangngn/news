@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>DAILY NEWS | TOTAL</title>
+    <title>DAILY NEWS | COMPLETO</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -95,25 +95,23 @@
 const config = {
     ciencia: [
         "https://www.agenciasinc.es/feed/Ciencia",
-        "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/ciencia/portada",
         "https://noticiasdelaciencia.com/rss/ciencia",
-        "https://www.20minutos.es/rss/ciencia/",
+        "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/ciencia/portada",
+        "https://naukas.com/feed",
         "https://scientias.net/feed/",
         "https://www.abc.es/rss/atom/ciencia/",
         "https://e00-elmundo.uecdn.es/rss/ciencia-y-salud.xml",
         "https://www.elespanol.com/rss/ciencia/",
-        "https://www.elperiodico.com/es/rss/ciencia/rss.xml",
-        "https://naukas.com/feed"
+        "https://www.elperiodico.com/es/rss/ciencia/rss.xml"
     ],
     tecnologia: [
         "https://www.muycomputer.com/feed/",
-        "https://www.20minutos.es/rss/tecnologia/",
-        "https://www.europapress.es/rss/rss.aspx?ch=72",
         "https://www.xataka.com/feedburner.xml",
-        "https://www.elespanol.com/rss/elandroidelibre/",
+        "https://www.elespanol.com/rss/omicrono/",
         "https://computerhoy.20minutos.es/rss/",
         "https://www.adslzone.net/feed/",
-        "https://www.elespanol.com/rss/omicrono/"
+        "https://www.elespanol.com/rss/elandroidelibre/",
+        "https://www.europapress.es/rss/rss.aspx?ch=72"
     ],
     videojuegos: [
         "https://www.3djuegos.com/feedburner.xml",
@@ -127,7 +125,6 @@ const config = {
         "https://www.espinof.com/feedburner.xml",
         "https://www.sensacine.com/rss/noticias.xml",
         "https://www.20minutos.es/rss/cinemania/",
-        "https://www.20minutos.es/rss/television/",
         "https://www.formulatv.com/xml/formulatv.xml",
         "https://www.elseptimoarte.net/rss_actualidad.php",
         "https://feeds.feedburner.com/hello_friki"
@@ -135,32 +132,31 @@ const config = {
 };
 
 const sourceData = {
-    "SINC": { keywords: ["SINC"], name: "SINC", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgdzVETxx1l4z1lVDMKZCNIoeQaGUUVxbLNw&s" },
-    "EL PAÍS": { keywords: ["EL PAÍS", "EL PAIS"], name: "EL PAÍS", logo: "https://biblioteca.uva.es/files/2023/10/Logo-El-Pais.png" },
-    "NCYT": { keywords: ["NCYT", "NOTICIAS DE LA CIENCIA"], name: "NCYT", logo: "https://noticiasdelaciencia.com/images/logo_rss.png" },
-    "20 MINUTOS": { keywords: ["20 MINUTOS", "20MINUTOS"], name: "20 MINUTOS", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/20_minutos.svg/330px-20_minutos.svg.png" },
-    "SCIENTIAS": { keywords: ["SCIENTIAS"], name: "SCIENTIAS", logo: "https://cdn.brandfetch.io/scientias.nl/fallback/lettermark/theme/dark/h/256/w/256/icon?c=1bfwsmEH20zzEfSNTed" },
-    "ABC": { keywords: ["ABC"], name: "ABC", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Logo_ABC.svg/1200px-Logo_ABC.svg.png" },
-    "EL MUNDO": { keywords: ["MUNDO"], name: "EL MUNDO", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/El_Mundo_logo.svg/1200px-El_Mundo_logo.svg.png" },
-    "EL ESPAÑOL": { keywords: ["ESPAÑOL", "ESPANOL"], name: "EL ESPAÑOL", logo: "https://s1.elespanol.com/static/ELE_Logo_Home.png" },
-    "EL PERIÓDICO": { keywords: ["PERIODICO", "PERIÓDICO"], name: "EL PERIÓDICO", logo: "https://descargas.elperiodico.com/logos/elperiodico.png" },
+    "SINC": { keywords: ["SINC"], name: "SINC", logo: "https://www.agenciasinc.es/bundles/frontend/img/logo-sinc.png" },
+    "NCYT": { keywords: ["NCYT", "NOTICIASDELACIENCIA"], name: "NCYT", logo: "https://noticiasdelaciencia.com/images/logo_rss.png" },
+    "EL PAÍS": { keywords: ["EL PAÍS", "EL PAIS"], name: "EL PAÍS", logo: "https://assets.elpais.com/favoritos/elpais.ico" },
     "NAUKAS": { keywords: ["NAUKAS"], name: "NAUKAS", logo: "https://naukas.com/fx/uploads/2019/09/Naukas.jpg" },
-    "XATAKA": { keywords: ["XATAKA"], name: "XATAKA", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGUuJ47JpfkIJcMmSD85KKMkIGSVJz3xO2jw&s" },
-    "COMPUTER HOY": { keywords: ["COMPUTER HOY", "COMPUTERHOY"], name: "COMPUTER HOY", logo: "https://www.henneomagazines.com/cdn/shop/collections/RevistaChoy.jpg?v=1719576430" },
-    "ADSL ZONE": { keywords: ["ADSLZONE", "ADSL ZONE"], name: "ADSL ZONE", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6A7GfGkL8UaV7U9pM_6XyZ8Pz0Tf-Vq-V_A&s" },
-    "OMICRONO": { keywords: ["OMICRONO"], name: "OMICRONO", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhMCLmy_VgElIayPdiI5OhfRbqqAnTOFazWyzxisD8Kw&s" },
-    "3D JUEGOS": { keywords: ["3DJUEGOS"], name: "3D JUEGOS", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4TkCVZaSxmfU-e__gEatDsmp7U8QMTsIFug&s" },
-    "VANDAL": { keywords: ["VANDAL"], name: "VANDAL", logo: "https://www.devuego.com/logos/logomedio_4_105.png" },
-    "EUROGAMER": { keywords: ["EUROGAMER"], name: "EUROGAMER", logo: "https://images.seeklogo.com/logo-png/31/1/eurogamer-logo-png_seeklogo-318085.png" },
-    "IGN": { keywords: ["IGN"], name: "IGN", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvNxeksaNaDINZq8LtA_6jo6PrcrsJ13YY4IircSfOPw&s" },
-    "VIDA EXTRA": { keywords: ["VIDAEXTRA"], name: "VIDA EXTRA", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXrX-I6R0G-g_3rR-ZqGvG6kK1Z7m-P7y7xA&s" },
-    "HOBBY CONSOLAS": { keywords: ["HOBBYCONSOLAS"], name: "HOBBY CONSOLAS", logo: "https://static-cdn.jtvnw.net/jtv_user_pictures/d59e456b-521b-4bd9-9943-09452d2f479c-profile_image-300x300.png" },
-    "CINEMANÍA": { keywords: ["CINEMANIA"], name: "CINEMANÍA", logo: "https://media.muckrack.com/groups/icons/JqoZrqU2_400x400.jpg" },
-    "FÓRMULA TV": { keywords: ["FORMULATV"], name: "FÓRMULA TV", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf0W8o-kY7Lp-y9x_4y8yP-wE-5-6-7-8-9&s" },
-    "HELLO FRIKI": { keywords: ["HELLO FRIKI"], name: "HELLO FRIKI", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeJ7eRBOQzqOTHJ9MFDxLbuJ_eHv7jzBXT1Q-FHpT8Vw&s" },
-    "EL SÉPTIMO ARTE": { keywords: ["SEPTIMOARTE"], name: "EL SÉPTIMO ARTE", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6vT-7o_X_7u-y9x_4y8yP-wE-5-6-7-8-9&s" },
-    "ESPINOF": { keywords: ["ESPINOF"], name: "ESPINOF", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6-m-P7y7xA-9x_4y8yP-wE-5-6-7-8-9&s" },
-    "SENSACINE": { keywords: ["SENSACINE"], name: "SENSACINE", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7-m-P7y7xA-9x_4y8yP-wE-5-6-7-8-9&s" }
+    "SCIENTIAS": { keywords: ["SCIENTIAS"], name: "SCIENTIAS", logo: "https://scientias.net/wp-content/uploads/2021/04/cropped-logo-scientias-32x32.png" },
+    "ABC": { keywords: ["ABC.ES", "ABC"], name: "ABC", logo: "https://www.abc.es/favicon.ico" },
+    "EL MUNDO": { keywords: ["ELMUNDO", "MUNDO"], name: "EL MUNDO", logo: "https://e00-elmundo.uecdn.es/favicon.ico" },
+    "EL ESPAÑOL": { keywords: ["ELESPANOL", "EL ESPAÑOL"], name: "EL ESPAÑOL", logo: "https://s1.elespanol.com/static/ELE_Logo_Home.png" },
+    "EL PERIÓDICO": { keywords: ["ELPERIODICO", "EL PERIÓDICO"], name: "EL PERIÓDICO", logo: "https://www.elperiodico.com/favicon.ico" },
+    "XATAKA": { keywords: ["XATAKA"], name: "XATAKA", logo: "https://www.xataka.com/favicon.ico" },
+    "OMICRONO": { keywords: ["OMICRONO"], name: "OMICRONO", logo: "https://s1.elespanol.com/static/favicon_omicrono.ico" },
+    "COMPUTER HOY": { keywords: ["COMPUTERHOY"], name: "COMPUTER HOY", logo: "https://computerhoy.com/favicon.ico" },
+    "ADSL ZONE": { keywords: ["ADSLZONE"], name: "ADSL ZONE", logo: "https://www.adslzone.net/favicon.ico" },
+    "3D JUEGOS": { keywords: ["3DJUEGOS"], name: "3D JUEGOS", logo: "https://www.3djuegos.com/favicon.ico" },
+    "VANDAL": { keywords: ["VANDAL"], name: "VANDAL", logo: "https://vandal.elespanol.com/favicon.ico" },
+    "EUROGAMER": { keywords: ["EUROGAMER"], name: "EUROGAMER", logo: "https://www.eurogamer.es/favicon.ico" },
+    "IGN": { keywords: ["IGN"], name: "IGN", logo: "https://es.ign.com/favicon.ico" },
+    "VIDA EXTRA": { keywords: ["VIDAEXTRA"], name: "VIDA EXTRA", logo: "https://www.vidaextra.com/favicon.ico" },
+    "HOBBY CONSOLAS": { keywords: ["HOBBYCONSOLAS"], name: "HOBBY CONSOLAS", logo: "https://www.hobbyconsolas.com/favicon.ico" },
+    "ESPINOF": { keywords: ["ESPINOF"], name: "ESPINOF", logo: "https://www.espinof.com/favicon.ico" },
+    "SENSACINE": { keywords: ["SENSACINE"], name: "SENSACINE", logo: "https://www.sensacine.com/favicon.ico" },
+    "CINEMANÍA": { keywords: ["CINEMANIA"], name: "CINEMANÍA", logo: "https://www.20minutos.es/favicon.ico" },
+    "FÓRMULA TV": { keywords: ["FORMULATV"], name: "FÓRMULA TV", logo: "https://www.formulatv.com/favicon.ico" },
+    "EL SÉPTIMO ARTE": { keywords: ["ELSEPTIMOARTE"], name: "EL SÉPTIMO ARTE", logo: "https://www.elseptimoarte.net/favicon.ico" },
+    "HELLO FRIKI": { keywords: ["HELLO FRIKI"], name: "HELLO FRIKI", logo: "https://hellofriki.com/favicon.ico" }
 };
 
 function formatSmartDate(dateStr) {
@@ -185,20 +181,18 @@ async function loadCategoryFeeds(urls, elementId) {
         .then(data => {
             if(data.status === 'ok') {
                 return data.items.map(item => {
-                    let feedTitle = (data.feed.title || "").toUpperCase();
-                    let feedLink = (data.feed.link || "").toUpperCase();
-                    let itemLink = (item.link || "").toUpperCase();
-                    let finalName = "INFO";
-                    let finalLogo = `https://www.google.com/s2/favicons?sz=64&domain=${new URL(item.link).hostname}`;
+                    const fTitle = (data.feed.title || "").toUpperCase();
+                    const iLink = (item.link || "").toUpperCase();
+                    let sourceKey = Object.keys(sourceData).find(key => 
+                        fTitle.includes(key) || iLink.includes(key.replace(/\s/g, ""))
+                    );
                     
-                    for (let key in sourceData) {
-                        if (sourceData[key].keywords.some(k => feedTitle.includes(k) || feedLink.includes(k) || itemLink.includes(k.replace(" ","")))) {
-                            finalName = sourceData[key].name;
-                            finalLogo = sourceData[key].logo;
-                            break;
-                        }
-                    }
-                    return {...item, sourceName: finalName, staticLogo: finalLogo, timestamp: new Date(item.pubDate).getTime()};
+                    return {
+                        ...item,
+                        sourceName: sourceKey ? sourceData[sourceKey].name : "INFO",
+                        staticLogo: sourceKey ? sourceData[sourceKey].logo : `https://www.google.com/s2/favicons?sz=64&domain=${new URL(item.link).hostname}`,
+                        timestamp: new Date(item.pubDate).getTime()
+                    };
                 });
             }
             return [];
@@ -210,7 +204,7 @@ async function loadCategoryFeeds(urls, elementId) {
     
     container.innerHTML = allItems.map(item => `
         <div class="feed-item">
-            <div class="feed-thumbnail-container"><img src="${item.staticLogo}" onerror="this.src='https://via.placeholder.com/65/333/fff?text=NEWS'"></div>
+            <div class="feed-thumbnail-container"><img src="${item.staticLogo}" onerror="this.src='https://www.google.com/s2/favicons?sz=64&domain=${new URL(item.link).hostname}'"></div>
             <div class="feed-content-container">
                 <h6 class="feed-title"><a href="${item.link}" target="_blank">${item.title}</a></h6>
                 <div class="feed-meta"><span class="source-tag">${item.sourceName}</span><span>${formatSmartDate(item.pubDate)}</span></div>
