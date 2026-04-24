@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>DAILY NEWS movil</title>
+    <title>DAILY NEWS ciencia</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -21,7 +21,6 @@
 
         body { background-color: var(--bg-color); color: var(--text-main); font-family: "Raleway", sans-serif; margin-bottom: 70px; }
         
-        /* Ajuste de scroll para móvil y PC */
         .feed-container { height: 75vh; overflow-y: scroll; padding-right: 5px; background-color: var(--card-bg); }
         @media (max-width: 600px) { .feed-container { height: calc(100vh - 220px); } }
 
@@ -50,7 +49,6 @@
         .w3-card-4 { background-color: var(--card-bg); border: none; }
         .w3-container h3 { font-weight: bold; text-transform: uppercase; font-size: 16px; margin: 15px 0; }
 
-        /* NAVEGACIÓN MÓVIL (TABS) */
         .mobile-nav {
             display: none;
             position: fixed;
@@ -81,8 +79,8 @@
 
         @media (max-width: 992px) {
             .mobile-nav { display: flex; }
-            .category-col { display: none; } /* Ocultar todas por defecto en móvil */
-            .category-col.active { display: block; } /* Mostrar solo la activa */
+            .category-col { display: none; } 
+            .category-col.active { display: block; }
             header { padding: 20px 0 !important; }
         }
     </style>
@@ -135,7 +133,10 @@
 
 <script>
 const config = {
-    ciencia: ["https://www.agenciasinc.es/feed/Ciencia"],
+    ciencia: [
+        "https://www.agenciasinc.es/feed/Ciencia",
+        "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/ciencia/portada"
+    ],
     tecnologia: ["https://www.muycomputer.com/feed/"],
     videojuegos: ["https://www.3djuegos.com/feedburner.xml"],
     cine: ["https://www.espinof.com/feedburner.xml"]
@@ -143,24 +144,18 @@ const config = {
 
 const sourceData = {
     "SINC": { keywords: ["SINC", "AGENCIA SI"], name: "SINC", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgdzVETxx1l4z1lVDMKZCNIoeQaGUUVxbLNw&s" },
+    "EL PAÍS": { keywords: ["EL PAÍS", "EL PAIS"], name: "EL PAÍS", logo: "https://biblioteca.uva.es/files/2023/10/Logo-El-Pais.png" },
     "MUY COMPUTER": { keywords: ["MUYCOMPUTE", "MUYCOMPUTER"], name: "MUY COMPUTER", logo: "https://www.tpnet.es/wp-content/uploads/2018/09/mc-tecnologia-consumo-content-marketing-video-design-logo.png" },
     "3D JUEGOS": { keywords: ["3DJUEGOS"], name: "3D JUEGOS", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4TkCVZaSxmfU-e__gEatDsmp7U8QMTsIFug&s" },
     "ESPINOF": { keywords: ["ESPINOF"], name: "ESPINOF", logo: "https://yt3.googleusercontent.com/ytc/AIdro_mwyVcXPGLPElADFqCr5xP9g086XmBMYYYbOu9bVagVJc0=s900-c-k-c0x00ffffff-no-rj" }
 };
 
-// Lógica de Pestañas Móviles
 function openTab(catName) {
-    if (window.innerWidth > 992) return; // Solo funciona en móvil/tablet
-    
-    // Ocultar todas las columnas
+    if (window.innerWidth > 992) return;
     const cols = document.getElementsByClassName("category-col");
     for (let i = 0; i < cols.length; i++) { cols[i].classList.remove("active"); }
-    
-    // Desactivar botones
     const btns = document.querySelectorAll(".mobile-nav button");
     btns.forEach(btn => btn.classList.remove("active"));
-    
-    // Activar seleccionada
     document.getElementById("col-" + catName).classList.add("active");
     document.getElementById("btn-" + catName).classList.add("active");
     window.scrollTo(0,0);
