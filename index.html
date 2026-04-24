@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>DAILY NEWS</title>
+    <title>DAILY NEWS nogoo</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -106,10 +106,7 @@
 
 <script>
 const config = {
-    ciencia: [
-        "https://www.agenciasinc.es/feed/Ciencia",
-        "https://news.google.com/rss/topics/CAAqLAgKIiZDQkFTRmdvSUwyMHZNRFp0Y1RjU0JtVnpMVFF4T1JvQ1VFVW9BQVAB?ceid=PE:es-419&oc=3"
-    ],
+    ciencia: ["https://www.agenciasinc.es/feed/Ciencia"],
     tecnologia: ["https://www.muycomputer.com/feed/"],
     videojuegos: ["https://www.3djuegos.com/feedburner.xml"],
     cine: ["https://www.espinof.com/feedburner.xml"]
@@ -117,7 +114,6 @@ const config = {
 
 const sourceData = {
     "SINC": { keywords: ["SINC", "AGENCIA SI"], name: "SINC", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgdzVETxx1l4z1lVDMKZCNIoeQaGUUVxbLNw&s" },
-    "GOOGLE NEWS": { keywords: ["GOOGLE NEWS", "GOOGLE NOTICIAS"], name: "GOOGLE NEWS", logo: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Google_News_icon.png" },
     "MUY COMPUTER": { keywords: ["MUYCOMPUTE", "MUYCOMPUTER"], name: "MUY COMPUTER", logo: "https://www.tpnet.es/wp-content/uploads/2018/09/mc-tecnologia-consumo-content-marketing-video-design-logo.png" },
     "3D JUEGOS": { keywords: ["3DJUEGOS"], name: "3D JUEGOS", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4TkCVZaSxmfU-e__gEatDsmp7U8QMTsIFug&s" },
     "ESPINOF": { keywords: ["ESPINOF"], name: "ESPINOF", logo: "https://yt3.googleusercontent.com/ytc/AIdro_mwyVcXPGLPElADFqCr5xP9g086XmBMYYYbOu9bVagVJc0=s900-c-k-c0x00ffffff-no-rj" }
@@ -145,25 +141,15 @@ async function loadCategoryFeeds(urls, elementId) {
                     let rawSource = (data.feed.title || "").toUpperCase();
                     let finalName = "INFO";
                     let finalLogo = "https://via.placeholder.com/85/333/fff?text=NEWS";
-                    let displayTitle = item.title;
-
-                    if (rawSource.includes("GOOGLE NEWS") || rawSource.includes("GOOGLE NOTICIAS")) {
-                        const titleParts = item.title.split(" - ");
-                        if (titleParts.length > 1) {
-                            finalName = titleParts.pop().trim().toUpperCase();
-                            displayTitle = titleParts.join(" - ");
-                        } else { finalName = "GOOGLE NEWS"; }
-                        finalLogo = sourceData["GOOGLE NEWS"].logo;
-                    } else {
-                        for (let key in sourceData) {
-                            if (sourceData[key].keywords.some(k => rawSource.includes(k))) {
-                                finalName = sourceData[key].name;
-                                finalLogo = sourceData[key].logo;
-                                break;
-                            }
+                    
+                    for (let key in sourceData) {
+                        if (sourceData[key].keywords.some(k => rawSource.includes(k))) {
+                            finalName = sourceData[key].name;
+                            finalLogo = sourceData[key].logo;
+                            break;
                         }
                     }
-                    return {...item, title: displayTitle, sourceName: finalName, staticLogo: finalLogo};
+                    return {...item, sourceName: finalName, staticLogo: finalLogo};
                 });
             }
             return [];
