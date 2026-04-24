@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>DAILY NEWS | GLOBAL</title>
+    <title>DAILY NEWS</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <style>
         :root {
-            --bg-color: #0a0a0a;
-            --card-bg: rgba(30, 30, 30, 0.7);
-            --text-main: #f0f0f0;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #e0e0e0;
             --text-dim: #b0b0b0;
             --border-color: #333;
             --header-ciencia: #0d47a1;
@@ -21,69 +21,107 @@
 
         body { background-color: var(--bg-color); color: var(--text-main); font-family: "Raleway", sans-serif; margin-bottom: 70px; }
         
-        /* Gradientes sutiles restaurados */
-        #col-ciencia { background: linear-gradient(180deg, rgba(13, 71, 161, 0.2) 0%, transparent 100%); }
-        #col-tecnologia { background: linear-gradient(180deg, rgba(55, 71, 79, 0.2) 0%, transparent 100%); }
-        #col-videojuegos { background: linear-gradient(180deg, rgba(183, 28, 28, 0.2) 0%, transparent 100%); }
-        #col-cine { background: linear-gradient(180deg, rgba(50, 50, 50, 0.2) 0%, transparent 100%); }
+        .feed-container { height: 75vh; overflow-y: scroll; padding-right: 5px; background-color: var(--card-bg); }
+        @media (max-width: 600px) { .feed-container { height: calc(100vh - 220px); } }
 
-        .feed-container { height: 75vh; overflow-y: scroll; padding: 10px; background-color: var(--card-bg); border-radius: 0 0 8px 8px; }
         .feed-container::-webkit-scrollbar { width: 4px; }
         .feed-container::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
 
         .feed-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
-        .feed-thumbnail-container { flex: 0 0 65px; height: 65px; margin-right: 12px; overflow: hidden; border-radius: 4px; background: #fff; display: flex; align-items: center; justify-content: center; }
+        
+        .feed-thumbnail-container { 
+            flex: 0 0 70px; height: 70px; margin-right: 12px; 
+            overflow: hidden; border-radius: 4px; background: #fff; 
+            display: flex; align-items: center; justify-content: center;
+        }
         .feed-thumbnail-container img { max-width: 85%; max-height: 85%; object-fit: contain; }
 
         .feed-content-container { flex: 1; min-width: 0; }
         .feed-title { font-size: 13px; font-weight: bold; margin: 0 0 4px 0; line-height: 1.2; }
         .feed-title a { text-decoration: none; color: var(--text-main); }
         
-        .feed-meta { font-size: 10px; color: var(--text-dim); display: flex; justify-content: space-between; }
+        .feed-meta { 
+            font-size: 10px; color: var(--text-dim); 
+            display: flex; justify-content: space-between; width: 100%;
+        }
         .source-tag { font-weight: 800; color: #90caf9; text-transform: uppercase; }
         
-        .mobile-nav { display: none; position: fixed; bottom: 0; width: 100%; background: #1a1a1a; border-top: 1px solid #333; z-index: 1000; }
-        .mobile-nav button { flex: 1; padding: 15px 0; border: none; background: none; color: var(--text-dim); font-size: 10px; font-weight: bold; }
-        .mobile-nav button.active { color: #fff; border-top: 3px solid #2196F3; }
+        .w3-card-4 { background-color: var(--card-bg); border: none; }
+        .w3-container h3 { font-weight: bold; text-transform: uppercase; font-size: 16px; margin: 15px 0; }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #1e1e1e;
+            border-top: 1px solid #333;
+            z-index: 1000;
+        }
+
+        .mobile-nav button {
+            flex: 1;
+            padding: 15px 0;
+            border: none;
+            background: none;
+            color: var(--text-dim);
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .mobile-nav button.active {
+            color: #fff;
+            border-top: 3px solid #2196F3;
+            background: #252525;
+        }
 
         @media (max-width: 992px) {
             .mobile-nav { display: flex; }
             .category-col { display: none; } 
             .category-col.active { display: block; }
+            header { padding: 20px 0 !important; }
         }
     </style>
 </head>
 <body>
 
+<div class="w3-content" style="max-width:1800px">
+
 <header class="w3-container w3-center w3-padding-32"> 
   <h1 style="font-weight: 900; letter-spacing: 3px; font-size: 24px;"><b>DAILY NEWS</b></h1>
 </header>
 
-<div class="w3-row-padding" style="max-width:1800px; margin: auto;">
+<div class="w3-row-padding">
   <div id="col-ciencia" class="w3-col l3 m12 category-col active w3-margin-bottom">
     <div class="w3-card-4">
       <div class="w3-container" style="background-color: var(--header-ciencia)"><h3 class="w3-center">Ciencia</h3></div>
-      <div id="ciencia" class="w3-container feed-container"></div>
+      <div id="ciencia" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
     </div>
   </div>
+
   <div id="col-tecnologia" class="w3-col l3 m12 category-col w3-margin-bottom">
     <div class="w3-card-4">
       <div class="w3-container" style="background-color: var(--header-tech)"><h3 class="w3-center">Tecnología</h3></div>
-      <div id="tecnologia" class="w3-container feed-container"></div>
+      <div id="tecnologia" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
     </div>
   </div>
+
   <div id="col-videojuegos" class="w3-col l3 m12 category-col w3-margin-bottom">
     <div class="w3-card-4">
       <div class="w3-container" style="background-color: var(--header-juegos)"><h3 class="w3-center">Videojuegos</h3></div>
-      <div id="videojuegos" class="w3-container feed-container"></div>
+      <div id="videojuegos" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
     </div>
   </div>
+
   <div id="col-cine" class="w3-col l3 m12 category-col w3-margin-bottom">
     <div class="w3-card-4">
       <div class="w3-container" style="background-color: var(--header-cine)"><h3 class="w3-center">Cine y TV</h3></div>
-      <div id="cine" class="w3-container feed-container"></div>
+      <div id="cine" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
     </div>
   </div>
+</div>
 </div>
 
 <nav class="mobile-nav">
@@ -97,23 +135,25 @@
 const config = {
     ciencia: [
         "https://www.agenciasinc.es/feed/Ciencia",
-        "https://noticiasdelaciencia.com/rss/ciencia",
         "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/ciencia/portada",
-        "https://naukas.com/feed",
+        "https://noticiasdelaciencia.com/rss/ciencia",
+        "https://www.20minutos.es/rss/ciencia/",
         "https://scientias.net/feed/",
         "https://www.abc.es/rss/atom/ciencia/",
         "https://e00-elmundo.uecdn.es/rss/ciencia-y-salud.xml",
         "https://www.elespanol.com/rss/ciencia/",
-        "https://www.elperiodico.com/es/rss/ciencia/rss.xml"
+        "https://www.elperiodico.com/es/rss/ciencia/rss.xml",
+        "https://naukas.com/feed"
     ],
     tecnologia: [
         "https://www.muycomputer.com/feed/",
+        "https://www.20minutos.es/rss/tecnologia/",
+        "https://www.europapress.es/rss/rss.aspx?ch=72",
         "https://www.xataka.com/feedburner.xml",
-        "https://www.elespanol.com/rss/omicrono/",
+        "https://www.elespanol.com/rss/elandroidelibre/",
         "https://computerhoy.20minutos.es/rss/",
         "https://www.adslzone.net/feed/",
-        "https://www.elespanol.com/rss/elandroidelibre/",
-        "https://www.europapress.es/rss/rss.aspx?ch=72"
+        "https://www.elespanol.com/rss/omicrono/"
     ],
     videojuegos: [
         "https://www.3djuegos.com/feedburner.xml",
@@ -127,41 +167,53 @@ const config = {
         "https://www.espinof.com/feedburner.xml",
         "https://www.sensacine.com/rss/noticias.xml",
         "https://www.20minutos.es/rss/cinemania/",
+        "https://www.20minutos.es/rss/television/",
         "https://www.formulatv.com/xml/formulatv.xml",
-        "https://www.elseptimoarte.net/rss_actualidad.php",
-        "https://feeds.feedburner.com/hello_friki"
+        "https://www.elseptimoarte.net/rss_actualidad.php"
     ]
 };
 
 const sourceData = {
-    "SINC": { keywords: ["SINC"], name: "SINC", logo: "https://www.agenciasinc.es/favicon.ico" },
-    "EL PAÍS": { keywords: ["EL PAIS", "EL PAÍS"], name: "EL PAÍS", logo: "https://biblioteca.uva.es/files/2023/10/Logo-El-Pais.png" },
-    "NCYT": { keywords: ["NCYT", "NOTICIASDELACIENCIA"], name: "NCYT", logo: "https://noticiasdelaciencia.com/images/logo_rss.png" },
-    "NAUKAS": { keywords: ["NAUKAS"], name: "NAUKAS", logo: "https://naukas.com/fx/uploads/2019/09/Naukas.jpg" },
+    "SINC": { keywords: ["SINC", "AGENCIA SI"], name: "SINC", logo: "https://www.agenciasinc.es/favicon.ico" },
+    "EL PAÍS": { keywords: ["EL PAÍS", "EL PAIS"], name: "EL PAÍS", logo: "https://biblioteca.uva.es/files/2023/10/Logo-El-Pais.png" },
+    "NCYT": { keywords: ["NCYT", "NOTICIAS DE LA CIENCIA"], name: "NCYT", logo: "https://noticiasdelaciencia.com/images/logo_rss.png" },
+    "20 MINUTOS": { keywords: ["20 MINUTOS", "20MINUTOS"], name: "20 MINUTOS", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/20_minutos.svg/330px-20_minutos.svg.png" },
     "SCIENTIAS": { keywords: ["SCIENTIAS"], name: "SCIENTIAS", logo: "https://scientias.net/wp-content/uploads/2021/04/cropped-logo-scientias-32x32.png" },
-    "ABC": { keywords: ["ABC.ES", "ABC_ES"], name: "ABC", logo: "https://www.abc.es/favicon.ico" },
-    "EL MUNDO": { keywords: ["ELMUNDO", "EL MUNDO"], name: "EL MUNDO", logo: "https://e00-elmundo.uecdn.es/favicon.ico" },
-    "EL ESPAÑOL": { keywords: ["ELESPANOL", "EL ESPAÑOL"], name: "EL ESPAÑOL", logo: "https://s1.elespanol.com/static/ELE_Logo_Home.png" },
-    "EL PERIÓDICO": { keywords: ["ELPERIODICO", "EL PERIÓDICO"], name: "EL PERIÓDICO", logo: "https://www.elperiodico.com/favicon.ico" },
+    "ABC": { keywords: ["ABC"], name: "ABC", logo: "https://www.abc.es/favicon.ico" },
+    "EL MUNDO": { keywords: ["MUNDO"], name: "EL MUNDO", logo: "https://e00-elmundo.uecdn.es/favicon.ico" },
+    "EL ESPAÑOL": { keywords: ["ESPAÑOL", "ESPANOL"], name: "EL ESPAÑOL", logo: "https://s1.elespanol.com/static/ELE_Logo_Home.png" },
+    "EL PERIÓDICO": { keywords: ["PERIODICO", "PERIÓDICO"], name: "EL PERIÓDICO", logo: "https://www.elperiodico.com/favicon.ico" },
+    "NAUKAS": { keywords: ["NAUKAS"], name: "NAUKAS", logo: "https://naukas.com/fx/uploads/2019/09/Naukas.jpg" },
     "XATAKA": { keywords: ["XATAKA"], name: "XATAKA", logo: "https://www.xataka.com/favicon.ico" },
+    "EL ANDROIDE LIBRE": { keywords: ["ANDROIDE LIBRE", "ANDROIDELIBRE"], name: "ANDROIDE LIBRE", logo: "https://s1.elespanol.com/static/favicon_elandroidelibre.ico" },
+    "COMPUTER HOY": { keywords: ["COMPUTER HOY", "COMPUTERHOY"], name: "COMPUTER HOY", logo: "https://computerhoy.com/favicon.ico" },
+    "ADSL ZONE": { keywords: ["ADSLZONE", "ADSL ZONE"], name: "ADSL ZONE", logo: "https://www.adslzone.net/favicon.ico" },
     "OMICRONO": { keywords: ["OMICRONO"], name: "OMICRONO", logo: "https://s1.elespanol.com/static/favicon_omicrono.ico" },
-    "COMPUTER HOY": { keywords: ["COMPUTERHOY"], name: "COMPUTER HOY", logo: "https://computerhoy.com/favicon.ico" },
-    "ADSL ZONE": { keywords: ["ADSLZONE"], name: "ADSL ZONE", logo: "https://www.adslzone.net/favicon.ico" },
+    "MUY COMPUTER": { keywords: ["MUYCOMPUTE", "MUYCOMPUTER"], name: "MUY COMPUTER", logo: "https://www.muycomputer.com/favicon.ico" },
+    "EUROPA PRESS": { keywords: ["EUROPA PRESS", "EUROPAPRESS"], name: "EUROPA PRESS", logo: "https://www.europapress.es/favicon.ico" },
     "3D JUEGOS": { keywords: ["3DJUEGOS"], name: "3D JUEGOS", logo: "https://www.3djuegos.com/favicon.ico" },
     "VANDAL": { keywords: ["VANDAL"], name: "VANDAL", logo: "https://vandal.elespanol.com/favicon.ico" },
     "EUROGAMER": { keywords: ["EUROGAMER"], name: "EUROGAMER", logo: "https://www.eurogamer.es/favicon.ico" },
     "IGN": { keywords: ["IGN"], name: "IGN", logo: "https://es.ign.com/favicon.ico" },
-    "VIDA EXTRA": { keywords: ["VIDAEXTRA"], name: "VIDA EXTRA", logo: "https://www.vidaextra.com/favicon.ico" },
-    "HOBBY CONSOLAS": { keywords: ["HOBBYCONSOLAS"], name: "HOBBY CONSOLAS", logo: "https://www.hobbyconsolas.com/favicon.ico" },
+    "VIDA EXTRA": { keywords: ["VIDAEXTRA", "VIDA EXTRA"], name: "VIDA EXTRA", logo: "https://www.vidaextra.com/favicon.ico" },
+    "HOBBY CONSOLAS": { keywords: ["HOBBYCONSOLAS", "HOBBY CONSOLAS"], name: "HOBBY CONSOLAS", logo: "https://www.hobbyconsolas.com/favicon.ico" },
     "ESPINOF": { keywords: ["ESPINOF"], name: "ESPINOF", logo: "https://www.espinof.com/favicon.ico" },
     "SENSACINE": { keywords: ["SENSACINE"], name: "SENSACINE", logo: "https://www.sensacine.com/favicon.ico" },
-    "CINEMANÍA": { keywords: ["CINEMANIA"], name: "CINEMANÍA", logo: "https://media.muckrack.com/groups/icons/JqoZrqU2_400x400.jpg" },
-    "FÓRMULA TV": { keywords: ["FORMULATV"], name: "FÓRMULA TV", logo: "https://www.formulatv.com/favicon.ico" },
-    "EL SÉPTIMO ARTE": { keywords: ["ELSEPTIMOARTE"], name: "EL SÉPTIMO ARTE", logo: "https://www.elseptimoarte.net/favicon.ico" },
-    "HELLO FRIKI": { keywords: ["HELLO FRIKI", "HELLOFRIKI"], name: "HELLO FRIKI", logo: "https://hellofriki.com/favicon.ico" },
-    "MUY COMPUTER": { keywords: ["MUYCOMPUTER"], name: "MUY COMPUTER", logo: "https://www.muycomputer.com/favicon.ico" },
-    "EUROPA PRESS": { keywords: ["EUROPAPRESS"], name: "EUROPA PRESS", logo: "https://www.europapress.es/favicon.ico" }
+    "CINEMANÍA": { keywords: ["CINEMANIA", "CINEMANÍA"], name: "CINEMANÍA", logo: "https://media.muckrack.com/groups/icons/JqoZrqU2_400x400.jpg" },
+    "FÓRMULA TV": { keywords: ["FORMULATV", "FÓRMULA TV"], name: "FÓRMULA TV", logo: "https://www.formulatv.com/favicon.ico" },
+    "EL SÉPTIMO ARTE": { keywords: ["SEPTIMOARTE", "SÉPTIMO ARTE"], name: "EL SÉPTIMO ARTE", logo: "https://www.elseptimoarte.net/favicon.ico" }
 };
+
+function openTab(catName) {
+    if (window.innerWidth > 992) return;
+    const cols = document.getElementsByClassName("category-col");
+    for (let i = 0; i < cols.length; i++) { cols[i].classList.remove("active"); }
+    const btns = document.querySelectorAll(".mobile-nav button");
+    btns.forEach(btn => btn.classList.remove("active"));
+    document.getElementById("col-" + catName).classList.add("active");
+    document.getElementById("btn-" + catName).classList.add("active");
+    window.scrollTo(0,0);
+}
 
 function formatSmartDate(dateStr) {
     const newsDate = new Date(dateStr);
@@ -176,59 +228,61 @@ function formatSmartDate(dateStr) {
 
 async function loadCategoryFeeds(urls, elementId) {
     let allItems = [];
-    const container = document.getElementById(elementId);
-    container.innerHTML = "<p class='w3-padding'>Cargando...</p>";
-
     const fetchPromises = urls.map(url => 
         fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`)
         .then(res => res.json())
         .then(data => {
             if(data.status === 'ok') {
                 return data.items.map(item => {
-                    const fTitle = (data.feed.title || "").toUpperCase();
-                    const iLink = (item.link || "").toUpperCase();
+                    let feedTitle = (data.feed.title || "").toUpperCase();
+                    let feedLink = (data.feed.link || "").toUpperCase();
+                    let itemLink = (item.link || "").toUpperCase();
+                    let finalName = "INFO";
+                    let finalLogo = "https://via.placeholder.com/85/333/fff?text=NEWS";
                     
-                    let sourceKey = Object.keys(sourceData).find(key => {
-                        return sourceData[key].keywords.some(k => 
-                            fTitle.includes(k) || iLink.includes(k.replace(/\s/g, ""))
-                        );
-                    });
-                    
-                    return {
-                        ...item,
-                        sourceName: sourceKey ? sourceData[sourceKey].name : "INFO",
-                        staticLogo: sourceKey ? sourceData[sourceKey].logo : `https://www.google.com/s2/favicons?sz=64&domain=${new URL(item.link).hostname}`,
-                        timestamp: new Date(item.pubDate).getTime()
-                    };
+                    if (itemLink.includes("CINEMANIA") || feedTitle.includes("CINEMANÍA")) {
+                        finalName = sourceData["CINEMANÍA"].name;
+                        finalLogo = sourceData["CINEMANÍA"].logo;
+                    } else {
+                        for (let key in sourceData) {
+                            if (sourceData[key].keywords.some(k => feedTitle.includes(k) || feedLink.includes(k) || itemLink.includes(k.replace(" ","")))) {
+                                finalName = sourceData[key].name;
+                                finalLogo = sourceData[key].logo;
+                                break;
+                            }
+                        }
+                    }
+                    return {...item, sourceName: finalName, staticLogo: finalLogo};
                 });
             }
             return [];
-        }).catch(() => [])
+        })
     );
 
-    const results = await Promise.all(fetchPromises);
-    allItems = results.flat().sort((a, b) => b.timestamp - a.timestamp);
-    
-    container.innerHTML = allItems.map(item => `
-        <div class="feed-item">
-            <div class="feed-thumbnail-container"><img src="${item.staticLogo}" onerror="this.src='https://www.google.com/s2/favicons?sz=64&domain=${new URL(item.link).hostname}'"></div>
-            <div class="feed-content-container">
-                <h6 class="feed-title"><a href="${item.link}" target="_blank">${item.title}</a></h6>
-                <div class="feed-meta"><span class="source-tag">${item.sourceName}</span><span>${formatSmartDate(item.pubDate)}</span></div>
-            </div>
-        </div>
-    `).join('') || "<p class='w3-padding'>No hay noticias.</p>";
-}
-
-function openTab(catName) {
-    if (window.innerWidth > 992) return;
-    document.querySelectorAll(".category-col, .mobile-nav button").forEach(el => el.classList.remove("active"));
-    document.getElementById("col-" + catName).classList.add("active");
-    document.getElementById("btn-" + catName).classList.add("active");
+    try {
+        const results = await Promise.all(fetchPromises);
+        allItems = results.flat().sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+        const container = document.getElementById(elementId);
+        let html = '';
+        allItems.forEach(item => {
+            html += `
+                <div class="feed-item">
+                    <div class="feed-thumbnail-container"><img src="${item.staticLogo}" alt="logo" onerror="this.src='https://www.google.com/s2/favicons?sz=64&domain=${new URL(item.link).hostname}'"></div>
+                    <div class="feed-content-container">
+                        <h6 class="feed-title"><a href="${item.link}" target="_blank">${item.title}</a></h6>
+                        <div class="feed-meta"><span class="source-tag">${item.sourceName}</span><span>${formatSmartDate(item.pubDate)}</span></div>
+                    </div>
+                </div>`;
+        });
+        container.innerHTML = html || "<p class='w3-padding'>Sin noticias.</p>";
+    } catch (err) { document.getElementById(elementId).innerHTML = "<p class='w3-padding'>Error de conexión.</p>"; }
 }
 
 window.onload = () => {
-    Object.keys(config).forEach(cat => loadCategoryFeeds(config[cat], cat));
+    loadCategoryFeeds(config.ciencia, 'ciencia');
+    loadCategoryFeeds(config.tecnologia, 'tecnologia');
+    loadCategoryFeeds(config.videojuegos, 'videojuegos');
+    loadCategoryFeeds(config.cine, 'cine');
 };
 </script>
 </body>
