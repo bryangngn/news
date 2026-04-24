@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>DAILY NEWS ciencia</title>
+    <title>DAILY NEWS cine</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -135,19 +135,30 @@
 const config = {
     ciencia: [
         "https://www.agenciasinc.es/feed/Ciencia",
-        "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/ciencia/portada"
+        "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/ciencia/portada",
+        "https://noticiasdelaciencia.com/rss/ciencia",
+        "https://www.20minutos.es/rss/ciencia/"
     ],
-    tecnologia: ["https://www.muycomputer.com/feed/"],
+    tecnologia: [
+        "https://www.muycomputer.com/feed/",
+        "https://www.20minutos.es/rss/tecnologia/"
+    ],
     videojuegos: ["https://www.3djuegos.com/feedburner.xml"],
-    cine: ["https://www.espinof.com/feedburner.xml"]
+    cine: [
+        "https://www.espinof.com/feedburner.xml",
+        "https://www.sensacine.com/rss/noticias.xml"
+    ]
 };
 
 const sourceData = {
     "SINC": { keywords: ["SINC", "AGENCIA SI"], name: "SINC", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgdzVETxx1l4z1lVDMKZCNIoeQaGUUVxbLNw&s" },
     "EL PAÍS": { keywords: ["EL PAÍS", "EL PAIS"], name: "EL PAÍS", logo: "https://biblioteca.uva.es/files/2023/10/Logo-El-Pais.png" },
+    "NCYT": { keywords: ["NCYT", "NOTICIAS DE LA CIENCIA"], name: "NCYT", logo: "https://yt3.googleusercontent.com/Z0bnKMwa2DOrPvtVUhpzuWfCNrzTIfjFhGukHh2xg4XnQhQsOLAx5fswoSrIolQHBPMGd0CY374=s900-c-k-c0x00ffffff-no-rj" },
+    "20 MINUTOS": { keywords: ["20 MINUTOS", "20MINUTOS"], name: "20 MINUTOS", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/20_minutos.svg/330px-20_minutos.svg.png" },
     "MUY COMPUTER": { keywords: ["MUYCOMPUTE", "MUYCOMPUTER"], name: "MUY COMPUTER", logo: "https://www.tpnet.es/wp-content/uploads/2018/09/mc-tecnologia-consumo-content-marketing-video-design-logo.png" },
     "3D JUEGOS": { keywords: ["3DJUEGOS"], name: "3D JUEGOS", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4TkCVZaSxmfU-e__gEatDsmp7U8QMTsIFug&s" },
-    "ESPINOF": { keywords: ["ESPINOF"], name: "ESPINOF", logo: "https://yt3.googleusercontent.com/ytc/AIdro_mwyVcXPGLPElADFqCr5xP9g086XmBMYYYbOu9bVagVJc0=s900-c-k-c0x00ffffff-no-rj" }
+    "ESPINOF": { keywords: ["ESPINOF"], name: "ESPINOF", logo: "https://yt3.googleusercontent.com/ytc/AIdro_mwyVcXPGLPElADFqCr5xP9g086XmBMYYYbOu9bVagVJc0=s900-c-k-c0x00ffffff-no-rj" },
+    "SENSACINE": { keywords: ["SENSACINE"], name: "SENSACINE", logo: "https://play-lh.googleusercontent.com/UsgtDAGmLYxCdyZDf7DsLJnHLGE_gHtyC7Tm2X-mY7inKyWJD0vCstJMToUi4nwZ0aYE" }
 };
 
 function openTab(catName) {
@@ -180,11 +191,13 @@ async function loadCategoryFeeds(urls, elementId) {
         .then(data => {
             if(data.status === 'ok') {
                 return data.items.map(item => {
-                    let rawSource = (data.feed.title || "").toUpperCase();
+                    let feedTitle = (data.feed.title || "").toUpperCase();
+                    let feedLink = (data.feed.link || "").toUpperCase();
                     let finalName = "INFO";
                     let finalLogo = "https://via.placeholder.com/85/333/fff?text=NEWS";
+                    
                     for (let key in sourceData) {
-                        if (sourceData[key].keywords.some(k => rawSource.includes(k))) {
+                        if (sourceData[key].keywords.some(k => feedTitle.includes(k) || feedLink.includes(k))) {
                             finalName = sourceData[key].name;
                             finalLogo = sourceData[key].logo;
                             break;
