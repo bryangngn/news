@@ -1,290 +1,207 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>DAILY NEWS</title>
+    <title>DAILY NEWS | PREMIUM</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <style>
         :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --text-main: #e0e0e0;
-            --text-dim: #b0b0b0;
-            --border-color: #333;
-            --header-ciencia: #0d47a1;
-            --header-tech: #37474f;
-            --header-juegos: #b71c1c;
-            --header-cine: #000000;
+            --bg-color: #0a0a0a;
+            --card-bg: rgba(30, 30, 30, 0.6);
+            --text-main: #f0f0f0;
+            --text-dim: #999;
+            --accent-blue: #007bff;
+            --accent-tech: #4caf50;
+            --accent-juegos: #f44336;
+            --accent-cine: #ffc107;
         }
 
-        body { background-color: var(--bg-color); color: var(--text-main); font-family: "Raleway", sans-serif; margin-bottom: 70px; }
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: "Raleway", sans-serif; 
+            margin-bottom: 70px;
+        }
         
-        .feed-container { height: 75vh; overflow-y: scroll; padding-right: 5px; background-color: var(--card-bg); }
-        @media (max-width: 600px) { .feed-container { height: calc(100vh - 220px); } }
+        /* Gradientes de fondo por columna */
+        #col-ciencia { background: linear-gradient(180deg, rgba(13, 71, 161, 0.2) 0%, transparent 100%); }
+        #col-tecnologia { background: linear-gradient(180deg, rgba(55, 71, 79, 0.2) 0%, transparent 100%); }
+        #col-videojuegos { background: linear-gradient(180deg, rgba(183, 28, 28, 0.2) 0%, transparent 100%); }
+        #col-cine { background: linear-gradient(180deg, rgba(30, 30, 30, 0.5) 0%, transparent 100%); }
 
-        .feed-container::-webkit-scrollbar { width: 4px; }
-        .feed-container::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
+        .feed-container { 
+            height: 78vh; 
+            overflow-y: scroll; 
+            padding: 10px; 
+            background-color: var(--card-bg);
+            border-radius: 0 0 8px 8px;
+            backdrop-filter: blur(10px);
+        }
 
-        .feed-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
+        .feed-container::-webkit-scrollbar { width: 3px; }
+        .feed-container::-webkit-scrollbar-thumb { background: #333; }
+
+        /* Estilo de la noticia */
+        .feed-item { 
+            display: flex; 
+            align-items: center; 
+            padding: 15px 10px; 
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.2s ease;
+        }
+        .feed-item:hover { background: rgba(255,255,255,0.03); transform: translateX(5px); }
         
         .feed-thumbnail-container { 
-            flex: 0 0 70px; height: 70px; margin-right: 12px; 
-            overflow: hidden; border-radius: 4px; background: #fff; 
+            flex: 0 0 55px; height: 55px; margin-right: 15px; 
+            overflow: hidden; border-radius: 50%; background: #fff; 
             display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
         }
-        .feed-thumbnail-container img { max-width: 85%; max-height: 85%; object-fit: contain; }
+        .feed-thumbnail-container img { max-width: 70%; max-height: 70%; object-fit: contain; }
 
-        .feed-content-container { flex: 1; min-width: 0; }
-        .feed-title { font-size: 13px; font-weight: bold; margin: 0 0 4px 0; line-height: 1.2; }
+        .feed-title { font-size: 13px; font-weight: 700; margin: 0; line-height: 1.3; }
         .feed-title a { text-decoration: none; color: var(--text-main); }
         
-        .feed-meta { 
-            font-size: 10px; color: var(--text-dim); 
-            display: flex; justify-content: space-between; width: 100%;
-        }
-        .source-tag { font-weight: 800; color: #90caf9; text-transform: uppercase; }
-        
-        .w3-card-4 { background-color: var(--card-bg); border: none; }
-        .w3-container h3 { font-weight: bold; text-transform: uppercase; font-size: 16px; margin: 15px 0; }
+        .feed-meta { font-size: 10px; color: var(--text-dim); margin-top: 6px; display: flex; justify-content: space-between; }
+        .source-tag { font-weight: 900; color: #fff; opacity: 0.8; letter-spacing: 0.5px; }
 
-        .mobile-nav {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        /* SKELETON LOADING ANIMATION */
+        .skeleton {
             background: #1e1e1e;
-            border-top: 1px solid #333;
-            z-index: 1000;
+            background: linear-gradient(90deg, #1e1e1e 25%, #2a2a2a 50%, #1e1e1e 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 4px;
         }
+        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-        .mobile-nav button {
-            flex: 1;
-            padding: 15px 0;
-            border: none;
-            background: none;
-            color: var(--text-dim);
-            font-size: 10px;
-            text-transform: uppercase;
-            font-weight: bold;
-            cursor: pointer;
-        }
+        .sk-item { display: flex; padding: 15px 10px; }
+        .sk-circle { width: 55px; height: 55px; border-radius: 50%; margin-right: 15px; }
+        .sk-line { flex: 1; height: 12px; margin-bottom: 8px; }
 
-        .mobile-nav button.active {
-            color: #fff;
-            border-top: 3px solid #2196F3;
-            background: #252525;
-        }
+        header h1 { font-weight: 900; letter-spacing: 5px; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+
+        /* Navegación móvil corregida */
+        .mobile-nav { display: none; position: fixed; bottom: 0; width: 100%; background: #000; z-index: 1000; }
+        .mobile-nav button { flex: 1; padding: 20px 0; border: none; background: none; color: #666; font-size: 10px; font-weight: bold; }
+        .mobile-nav button.active { color: #fff; background: rgba(255,255,255,0.1); }
 
         @media (max-width: 992px) {
             .mobile-nav { display: flex; }
             .category-col { display: none; } 
             .category-col.active { display: block; }
-            header { padding: 20px 0 !important; }
         }
     </style>
 </head>
 <body>
 
-<div class="w3-content" style="max-width:1800px">
-
 <header class="w3-container w3-center w3-padding-32"> 
-  <h1 style="font-weight: 900; letter-spacing: 3px; font-size: 24px;"><b>DAILY NEWS</b></h1>
+  <h1><b>DAILY NEWS</b></h1>
 </header>
 
-<div class="w3-row-padding">
+<div class="w3-row-padding" style="max-width: 1800px; margin: auto;">
   <div id="col-ciencia" class="w3-col l3 m12 category-col active w3-margin-bottom">
-    <div class="w3-card-4">
-      <div class="w3-container" style="background-color: var(--header-ciencia)"><h3 class="w3-center">Ciencia</h3></div>
-      <div id="ciencia" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
-    </div>
+    <div class="w3-container w3-blue-grey w3-center" style="border-radius: 8px 8px 0 0"><h3>Ciencia</h3></div>
+    <div id="ciencia" class="feed-container"></div>
   </div>
 
   <div id="col-tecnologia" class="w3-col l3 m12 category-col w3-margin-bottom">
-    <div class="w3-card-4">
-      <div class="w3-container" style="background-color: var(--header-tech)"><h3 class="w3-center">Tecnología</h3></div>
-      <div id="tecnologia" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
-    </div>
+    <div class="w3-container w3-grey w3-center" style="border-radius: 8px 8px 0 0"><h3>Tecnología</h3></div>
+    <div id="tecnologia" class="feed-container"></div>
   </div>
 
   <div id="col-videojuegos" class="w3-col l3 m12 category-col w3-margin-bottom">
-    <div class="w3-card-4">
-      <div class="w3-container" style="background-color: var(--header-juegos)"><h3 class="w3-center">Videojuegos</h3></div>
-      <div id="videojuegos" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
-    </div>
+    <div class="w3-container w3-red w3-center" style="border-radius: 8px 8px 0 0"><h3>Videojuegos</h3></div>
+    <div id="videojuegos" class="feed-container"></div>
   </div>
 
   <div id="col-cine" class="w3-col l3 m12 category-col w3-margin-bottom">
-    <div class="w3-card-4">
-      <div class="w3-container" style="background-color: var(--header-cine)"><h3 class="w3-center">Cine y TV</h3></div>
-      <div id="cine" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
-    </div>
+    <div class="w3-container w3-black w3-center" style="border-radius: 8px 8px 0 0"><h3>Cine y TV</h3></div>
+    <div id="cine" class="feed-container"></div>
   </div>
-</div>
 </div>
 
 <nav class="mobile-nav">
-  <button onclick="openTab('ciencia')" id="btn-ciencia" class="active">Ciencia</button>
-  <button onclick="openTab('tecnologia')" id="btn-tecnologia">Tech</button>
-  <button onclick="openTab('videojuegos')" id="btn-videojuegos">Juegos</button>
-  <button onclick="openTab('cine')" id="btn-cine">Cine</button>
+  <button onclick="openTab('ciencia')" id="btn-ciencia" class="active">CIENCIA</button>
+  <button onclick="openTab('tecnologia')" id="btn-tecnologia">TECH</button>
+  <button onclick="openTab('videojuegos')" id="btn-videojuegos">GAMES</button>
+  <button onclick="openTab('cine')" id="btn-cine">CINE</button>
 </nav>
 
 <script>
 const config = {
-    ciencia: [
-        "https://www.agenciasinc.es/feed/Ciencia",
-        "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/ciencia/portada",
-        "https://noticiasdelaciencia.com/rss/ciencia",
-        "https://www.20minutos.es/rss/ciencia/",
-        "https://scientias.net/feed/",
-        "https://www.abc.es/rss/atom/ciencia/",
-        "https://e00-elmundo.uecdn.es/rss/ciencia-y-salud.xml",
-        "https://www.elespanol.com/rss/ciencia/",
-        "https://www.elperiodico.com/es/rss/ciencia/rss.xml",
-        "https://naukas.com/feed"
-    ],
-    tecnologia: [
-        "https://www.muycomputer.com/feed/",
-        "https://www.20minutos.es/rss/tecnologia/",
-        "https://www.europapress.es/rss/rss.aspx?ch=72",
-        "https://www.xataka.com/feedburner.xml",
-        "https://www.elespanol.com/rss/elandroidelibre/",
-        "https://computerhoy.20minutos.es/rss/",
-        "https://www.adslzone.net/feed/",
-        "https://www.elespanol.com/rss/omicrono/"
-    ],
-    videojuegos: [
-        "https://www.3djuegos.com/feedburner.xml",
-        "https://vandal.elespanol.com/xml.cgi",
-        "https://www.eurogamer.es/?format=rss",
-        "https://es.ign.com/feed.xml",
-        "http://feeds.weblogssl.com/vidaextra",
-        "https://www.hobbyconsolas.com/rss/"
-    ],
-    cine: [
-        "https://www.espinof.com/feedburner.xml",
-        "https://www.sensacine.com/rss/noticias.xml",
-        "https://www.20minutos.es/rss/cinemania/",
-        "https://www.20minutos.es/rss/television/",
-        "https://www.formulatv.com/xml/formulatv.xml",
-        "https://www.elseptimoarte.net/rss_actualidad.php",
-        "https://feeds.feedburner.com/hello_friki"
-    ]
+    ciencia: ["https://www.agenciasinc.es/feed/Ciencia", "https://naukas.com/feed", "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/ciencia/portada"],
+    tecnologia: ["https://www.xataka.com/feedburner.xml", "https://www.elespanol.com/rss/omicrono/", "https://computerhoy.20minutos.es/rss/"],
+    videojuegos: ["https://www.3djuegos.com/feedburner.xml", "https://vandal.elespanol.com/xml.cgi", "https://es.ign.com/feed.xml", "https://www.hobbyconsolas.com/rss/"],
+    cine: ["https://www.espinof.com/feedburner.xml", "https://www.20minutos.es/rss/cinemania/", "https://www.formulatv.com/xml/formulatv.xml", "https://feeds.feedburner.com/hello_friki"]
 };
 
-const sourceData = {
-    "SINC": { keywords: ["SINC", "AGENCIA SI"], name: "SINC", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgdzVETxx1l4z1lVDMKZCNIoeQaGUUVxbLNw&s" },
-    "EL PAÍS": { keywords: ["EL PAÍS", "EL PAIS"], name: "EL PAÍS", logo: "https://biblioteca.uva.es/files/2023/10/Logo-El-Pais.png" },
-    "NCYT": { keywords: ["NCYT", "NOTICIAS DE LA CIENCIA"], name: "NCYT", logo: "https://yt3.googleusercontent.com/Z0bnKMwa2DOrPvtVUhpzuWfCNrzTIfjFhGukHh2xg4XnQhQsOLAx5fswoSrIolQHBPMGd0CY374=s900-c-k-c0x00ffffff-no-rj" },
-    "20 MINUTOS": { keywords: ["20 MINUTOS", "20MINUTOS"], name: "20 MINUTOS", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/20_minutos.svg/330px-20_minutos.svg.png" },
-    "SCIENTIAS": { keywords: ["SCIENTIAS"], name: "SCIENTIAS", logo: "https://cdn.brandfetch.io/scientias.nl/fallback/lettermark/theme/dark/h/256/w/256/icon?c=1bfwsmEH20zzEfSNTed" },
-    "ABC": { keywords: ["ABC"], name: "ABC", logo: "https://play-lh.googleusercontent.com/1BHz5zmBVutix7HhBg6V2MHAPpLb2iEbypKGuXsgirirab21ZrN-hlypP72q0eVNltLkbBw0fBImuUzi6G1BeQ=w240-h480-rw" },
-    "EL MUNDO": { keywords: ["MUNDO"], name: "EL MUNDO", logo: "https://play-lh.googleusercontent.com/BzW36kJtSe3OheGZj3ALXRftyEZx01qG4mZTghnU9h9z0zgW3ONIQN-bLaewfa2FJN0" },
-    "EL ESPAÑOL": { keywords: ["ESPAÑOL", "ESPANOL"], name: "EL ESPAÑOL", logo: "https://play-lh.googleusercontent.com/wjeAR1FcFIBzXzgwFUi1JqkZ-j2lyi_4ijIWpmHjW7uUCUUjFTkT5BjTROucPTvuxy0z" },
-    "EL PERIÓDICO": { keywords: ["PERIODICO", "PERIÓDICO"], name: "EL PERIÓDICO", logo: "https://play-lh.googleusercontent.com/YPbhMp-YhAfgdmUHDbhdWLSoU0t_O4WKLusgze6-hJ7XQMGglNXVtcIhb7Yk7hLxfRE" },
-    "NAUKAS": { keywords: ["NAUKAS"], name: "NAUKAS", logo: "https://naukas.com/fx/uploads/2019/09/Naukas.jpg" },
-    "XATAKA": { keywords: ["XATAKA"], name: "XATAKA", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGUuJ47JpfkIJcMmSD85KKMkIGSVJz3xO2jw&s" },
-    "EL ANDROIDE LIBRE": { keywords: ["ANDROIDE LIBRE", "ANDROIDELIBRE"], name: "ANDROIDE LIBRE", logo: "https://yt3.googleusercontent.com/ytc/AIdro_liNjwPL87J1Y-ECyqIP45ZTJKuFv12FAO0mDmpx9QMPcA=s900-c-k-c0x00ffffff-no-rj" },
-    "COMPUTER HOY": { keywords: ["COMPUTER HOY", "COMPUTERHOY"], name: "COMPUTER HOY", logo: "https://www.henneomagazines.com/cdn/shop/collections/RevistaChoy.jpg?v=1719576430" },
-    "ADSL ZONE": { keywords: ["ADSLZONE", "ADSL ZONE"], name: "ADSL ZONE", logo: "https://yt3.googleusercontent.com/poArcwcvyODJXmInaNEdRwHZAPqf-isgEgtzp6bWA5Es9Wxg-1JK0UqZxVI9IHnx5pGhFWdl_g=s900-c-k-c0x00ffffff-no-rj" },
-    "OMICRONO": { keywords: ["OMICRONO"], name: "OMICRONO", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhMCLmy_VgElIayPdiI5OhfRbqqAnTOFazWyzxisD8Kw&s&ec=121644689" },
-    "MUY COMPUTER": { keywords: ["MUYCOMPUTE", "MUYCOMPUTER"], name: "MUY COMPUTER", logo: "https://www.tpnet.es/wp-content/uploads/2018/09/mc-tecnologia-consumo-content-marketing-video-design-logo.png" },
-    "EUROPA PRESS": { keywords: ["EUROPA PRESS", "EUROPAPRESS"], name: "EUROPA PRESS", logo: "https://www.diario-red.com/media/diariored/images/2023/10/18/20231018090537005682.png" },
-    "3D JUEGOS": { keywords: ["3DJUEGOS"], name: "3D JUEGOS", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4TkCVZaSxmfU-e__gEatDsmp7U8QMTsIFug&s" },
-    "VANDAL": { keywords: ["VANDAL"], name: "VANDAL", logo: "https://www.devuego.com/logos/logomedio_4_105.png" },
-    "EUROGAMER": { keywords: ["EUROGAMER"], name: "EUROGAMER", logo: "https://images.seeklogo.com/logo-png/31/1/eurogamer-logo-png_seeklogo-318085.png" },
-    "IGN": { keywords: ["IGN"], name: "IGN", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvNxeksaNaDINZq8LtA_6jo6PrcrsJ13YY4IircSfOPw&s&ec=121644689" },
-    "VIDA EXTRA": { keywords: ["VIDAEXTRA", "VIDA EXTRA"], name: "VIDA EXTRA", logo: "https://yt3.googleusercontent.com/tjJ0c66ypMDKUWjlMkRRX0rG97bndxtfYL4Cc4PwpGxGbnnQH4iJVK5Nt4qZgVg201bnK9zoOw=s900-c-k-c0x00ffffff-no-rj" },
-    "HOBBY CONSOLAS": { keywords: ["HOBBYCONSOLAS", "HOBBY CONSOLAS"], name: "HOBBY CONSOLAS", logo: "https://static-cdn.jtvnw.net/jtv_user_pictures/d59e456b-521b-4bd9-9943-09452d2f479c-profile_image-300x300.png" },
-    "ESPINOF": { keywords: ["ESPINOF"], name: "ESPINOF", logo: "https://yt3.googleusercontent.com/ytc/AIdro_mwyVcXPGLPElADFqCr5xP9g086XmBMYYYbOu9bVagVJc0=s900-c-k-c0x00ffffff-no-rj" },
-    "SENSACINE": { keywords: ["SENSACINE"], name: "SENSACINE", logo: "https://play-lh.googleusercontent.com/UsgtDAGmLYxCdyZDf7DsLJnHLGE_gHtyC7Tm2X-mY7inKyWJD0vCstJMToUi4nwZ0aYE" },
-    "CINEMANÍA": { keywords: ["CINEMANIA", "CINEMANÍA"], name: "CINEMANÍA", logo: "https://media.muckrack.com/groups/icons/JqoZrqU2_400x400.jpg" },
-    "FÓRMULA TV": { keywords: ["FORMULATV", "FÓRMULA TV"], name: "FÓRMULA TV", logo: "https://yt3.googleusercontent.com/HjTTOC7wpzwYxnQpoWxYUSCs3WrXjwGXkCFl-Nb4U42Riz5TQ52GuZ5bt9ZWWauj53jIumoJ=s900-c-k-c0x00ffffff-no-rj" },
-    "EL SÉPTIMO ARTE": { keywords: ["SEPTIMOARTE", "SÉPTIMO ARTE"], name: "EL SÉPTIMO ARTE", logo: "https://yt3.googleusercontent.com/ytc/AIdro_lUZTIU2h-QKwZryM-3YKiNyud-2O5Eu2ESFrkdxZ8kn5E=s900-c-k-c0x00ffffff-no-rj" },
-    "HELLO FRIKI": { keywords: ["HELLO FRIKI", "HELLOFRIKI"], name: "HELLO FRIKI", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeJ7eRBOQzqOTHJ9MFDxLbuJ_eHv7jzBXT1Q-FHpT8Vw&s&ec=121644689" }
-};
+// Generar skeleton screens al inicio
+function showSkeletons() {
+    const skeletonHTML = Array(6).fill(`
+        <div class="sk-item">
+            <div class="sk-circle skeleton"></div>
+            <div style="flex:1">
+                <div class="sk-line skeleton" style="width:90%"></div>
+                <div class="sk-line skeleton" style="width:40%"></div>
+            </div>
+        </div>
+    `).join('');
+    document.querySelectorAll('.feed-container').forEach(c => c.innerHTML = skeletonHTML);
+}
 
-function openTab(catName) {
+function openTab(cat) {
     if (window.innerWidth > 992) return;
-    const cols = document.getElementsByClassName("category-col");
-    for (let i = 0; i < cols.length; i++) { cols[i].classList.remove("active"); }
-    const btns = document.querySelectorAll(".mobile-nav button");
-    btns.forEach(btn => btn.classList.remove("active"));
-    document.getElementById("col-" + catName).classList.add("active");
-    document.getElementById("btn-" + catName).classList.add("active");
-    window.scrollTo(0,0);
+    document.querySelectorAll(".category-col").forEach(c => c.classList.remove("active"));
+    document.querySelectorAll(".mobile-nav button").forEach(b => b.classList.remove("active"));
+    document.getElementById("col-" + cat).classList.add("active");
+    document.getElementById("btn-" + cat).classList.add("active");
 }
 
-function formatSmartDate(dateStr) {
-    const newsDate = new Date(dateStr);
-    const today = new Date();
-    const yesterday = new Date();
-    yesterday.setDate(today.getDate() - 1);
-    const timeStr = newsDate.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-    if (newsDate.toDateString() === today.toDateString()) return `Hoy | ${timeStr}`;
-    if (newsDate.toDateString() === yesterday.toDateString()) return `Ayer | ${timeStr}`;
-    return `${newsDate.toLocaleDateString('es-ES')} | ${timeStr}`;
-}
-
-async function loadCategoryFeeds(urls, elementId) {
+async function loadFeeds(urls, elementId) {
     let allItems = [];
     const fetchPromises = urls.map(url => 
         fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`)
         .then(res => res.json())
         .then(data => {
             if(data.status === 'ok') {
-                return data.items.map(item => {
-                    let feedTitle = (data.feed.title || "").toUpperCase();
-                    let feedLink = (data.feed.link || "").toUpperCase();
-                    let itemLink = (item.link || "").toUpperCase();
-                    let finalName = "INFO";
-                    let finalLogo = "https://via.placeholder.com/85/333/fff?text=NEWS";
-                    
-                    if (itemLink.includes("CINEMANIA") || feedTitle.includes("CINEMANÍA")) {
-                        finalName = sourceData["CINEMANÍA"].name;
-                        finalLogo = sourceData["CINEMANÍA"].logo;
-                    } else {
-                        for (let key in sourceData) {
-                            if (sourceData[key].keywords.some(k => feedTitle.includes(k) || feedLink.includes(k))) {
-                                finalName = sourceData[key].name;
-                                finalLogo = sourceData[key].logo;
-                                break;
-                            }
-                        }
-                    }
-                    return {...item, sourceName: finalName, staticLogo: finalLogo};
-                });
+                return data.items.map(item => ({
+                    ...item,
+                    source: data.feed.title.split(' ')[0].toUpperCase()
+                }));
             }
             return [];
         })
     );
 
-    try {
-        const results = await Promise.all(fetchPromises);
-        allItems = results.flat().sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
-        const container = document.getElementById(elementId);
-        let html = '';
-        allItems.forEach(item => {
-            html += `
-                <div class="feed-item">
-                    <div class="feed-thumbnail-container"><img src="${item.staticLogo}" alt="logo"></div>
-                    <div class="feed-content-container">
-                        <h6 class="feed-title"><a href="${item.link}" target="_blank">${item.title}</a></h6>
-                        <div class="feed-meta"><span class="source-tag">${item.sourceName}</span><span>${formatSmartDate(item.pubDate)}</span></div>
-                    </div>
-                </div>`;
-        });
-        container.innerHTML = html || "<p class='w3-padding'>Sin noticias.</p>";
-    } catch (err) { document.getElementById(elementId).innerHTML = "<p class='w3-padding'>Error de conexión.</p>"; }
+    const results = await Promise.all(fetchPromises);
+    allItems = results.flat().sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+    
+    const container = document.getElementById(elementId);
+    container.innerHTML = allItems.map(item => `
+        <div class="feed-item">
+            <div class="feed-thumbnail-container">
+                <img src="https://www.google.com/s2/favicons?sz=64&domain=${new URL(item.link).hostname}" alt="icon">
+            </div>
+            <div style="flex:1">
+                <h6 class="feed-title"><a href="${item.link}" target="_blank">${item.title}</a></h6>
+                <div class="feed-meta">
+                    <span class="source-tag">${item.source}</span>
+                    <span>${new Date(item.pubDate).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                </div>
+            </div>
+        </div>
+    `).join('');
 }
 
 window.onload = () => {
-    loadCategoryFeeds(config.ciencia, 'ciencia');
-    loadCategoryFeeds(config.tecnologia, 'tecnologia');
-    loadCategoryFeeds(config.videojuegos, 'videojuegos');
-    loadCategoryFeeds(config.cine, 'cine');
+    showSkeletons();
+    // Un pequeño delay para que se aprecie el skeleton si la conexión es muy rápida
+    setTimeout(() => {
+        Object.keys(config).forEach(cat => loadFeeds(config[cat], cat));
+    }, 800);
 };
 </script>
 </body>
