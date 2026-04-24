@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>DAILY NEWS | COMPLETO</title>
+    <title>DAILY NEWS | GLOBAL</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -12,6 +12,7 @@
             --card-bg: rgba(30, 30, 30, 0.7);
             --text-main: #f0f0f0;
             --text-dim: #b0b0b0;
+            --border-color: #333;
             --header-ciencia: #0d47a1;
             --header-tech: #37474f;
             --header-juegos: #b71c1c;
@@ -20,6 +21,7 @@
 
         body { background-color: var(--bg-color); color: var(--text-main); font-family: "Raleway", sans-serif; margin-bottom: 70px; }
         
+        /* Gradientes sutiles restaurados */
         #col-ciencia { background: linear-gradient(180deg, rgba(13, 71, 161, 0.2) 0%, transparent 100%); }
         #col-tecnologia { background: linear-gradient(180deg, rgba(55, 71, 79, 0.2) 0%, transparent 100%); }
         #col-videojuegos { background: linear-gradient(180deg, rgba(183, 28, 28, 0.2) 0%, transparent 100%); }
@@ -29,7 +31,7 @@
         .feed-container::-webkit-scrollbar { width: 4px; }
         .feed-container::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
 
-        .feed-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .feed-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
         .feed-thumbnail-container { flex: 0 0 65px; height: 65px; margin-right: 12px; overflow: hidden; border-radius: 4px; background: #fff; display: flex; align-items: center; justify-content: center; }
         .feed-thumbnail-container img { max-width: 85%; max-height: 85%; object-fit: contain; }
 
@@ -132,13 +134,13 @@ const config = {
 };
 
 const sourceData = {
-    "SINC": { keywords: ["SINC"], name: "SINC", logo: "https://www.agenciasinc.es/bundles/frontend/img/logo-sinc.png" },
+    "SINC": { keywords: ["SINC"], name: "SINC", logo: "https://www.agenciasinc.es/favicon.ico" },
+    "EL PAÍS": { keywords: ["EL PAIS", "EL PAÍS"], name: "EL PAÍS", logo: "https://biblioteca.uva.es/files/2023/10/Logo-El-Pais.png" },
     "NCYT": { keywords: ["NCYT", "NOTICIASDELACIENCIA"], name: "NCYT", logo: "https://noticiasdelaciencia.com/images/logo_rss.png" },
-    "EL PAÍS": { keywords: ["EL PAÍS", "EL PAIS"], name: "EL PAÍS", logo: "https://assets.elpais.com/favoritos/elpais.ico" },
     "NAUKAS": { keywords: ["NAUKAS"], name: "NAUKAS", logo: "https://naukas.com/fx/uploads/2019/09/Naukas.jpg" },
     "SCIENTIAS": { keywords: ["SCIENTIAS"], name: "SCIENTIAS", logo: "https://scientias.net/wp-content/uploads/2021/04/cropped-logo-scientias-32x32.png" },
-    "ABC": { keywords: ["ABC.ES", "ABC"], name: "ABC", logo: "https://www.abc.es/favicon.ico" },
-    "EL MUNDO": { keywords: ["ELMUNDO", "MUNDO"], name: "EL MUNDO", logo: "https://e00-elmundo.uecdn.es/favicon.ico" },
+    "ABC": { keywords: ["ABC.ES", "ABC_ES"], name: "ABC", logo: "https://www.abc.es/favicon.ico" },
+    "EL MUNDO": { keywords: ["ELMUNDO", "EL MUNDO"], name: "EL MUNDO", logo: "https://e00-elmundo.uecdn.es/favicon.ico" },
     "EL ESPAÑOL": { keywords: ["ELESPANOL", "EL ESPAÑOL"], name: "EL ESPAÑOL", logo: "https://s1.elespanol.com/static/ELE_Logo_Home.png" },
     "EL PERIÓDICO": { keywords: ["ELPERIODICO", "EL PERIÓDICO"], name: "EL PERIÓDICO", logo: "https://www.elperiodico.com/favicon.ico" },
     "XATAKA": { keywords: ["XATAKA"], name: "XATAKA", logo: "https://www.xataka.com/favicon.ico" },
@@ -153,10 +155,12 @@ const sourceData = {
     "HOBBY CONSOLAS": { keywords: ["HOBBYCONSOLAS"], name: "HOBBY CONSOLAS", logo: "https://www.hobbyconsolas.com/favicon.ico" },
     "ESPINOF": { keywords: ["ESPINOF"], name: "ESPINOF", logo: "https://www.espinof.com/favicon.ico" },
     "SENSACINE": { keywords: ["SENSACINE"], name: "SENSACINE", logo: "https://www.sensacine.com/favicon.ico" },
-    "CINEMANÍA": { keywords: ["CINEMANIA"], name: "CINEMANÍA", logo: "https://www.20minutos.es/favicon.ico" },
+    "CINEMANÍA": { keywords: ["CINEMANIA"], name: "CINEMANÍA", logo: "https://media.muckrack.com/groups/icons/JqoZrqU2_400x400.jpg" },
     "FÓRMULA TV": { keywords: ["FORMULATV"], name: "FÓRMULA TV", logo: "https://www.formulatv.com/favicon.ico" },
     "EL SÉPTIMO ARTE": { keywords: ["ELSEPTIMOARTE"], name: "EL SÉPTIMO ARTE", logo: "https://www.elseptimoarte.net/favicon.ico" },
-    "HELLO FRIKI": { keywords: ["HELLO FRIKI"], name: "HELLO FRIKI", logo: "https://hellofriki.com/favicon.ico" }
+    "HELLO FRIKI": { keywords: ["HELLO FRIKI", "HELLOFRIKI"], name: "HELLO FRIKI", logo: "https://hellofriki.com/favicon.ico" },
+    "MUY COMPUTER": { keywords: ["MUYCOMPUTER"], name: "MUY COMPUTER", logo: "https://www.muycomputer.com/favicon.ico" },
+    "EUROPA PRESS": { keywords: ["EUROPAPRESS"], name: "EUROPA PRESS", logo: "https://www.europapress.es/favicon.ico" }
 };
 
 function formatSmartDate(dateStr) {
@@ -183,9 +187,12 @@ async function loadCategoryFeeds(urls, elementId) {
                 return data.items.map(item => {
                     const fTitle = (data.feed.title || "").toUpperCase();
                     const iLink = (item.link || "").toUpperCase();
-                    let sourceKey = Object.keys(sourceData).find(key => 
-                        fTitle.includes(key) || iLink.includes(key.replace(/\s/g, ""))
-                    );
+                    
+                    let sourceKey = Object.keys(sourceData).find(key => {
+                        return sourceData[key].keywords.some(k => 
+                            fTitle.includes(k) || iLink.includes(k.replace(/\s/g, ""))
+                        );
+                    });
                     
                     return {
                         ...item,
