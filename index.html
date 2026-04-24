@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>DAILY NEWS</title>
+    <title>DAILY NEWS 2</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -10,14 +10,32 @@
         body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
         .feed-container { height: 750px; overflow-y: scroll; padding-right: 5px; }
         .feed-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; }
-        .feed-thumbnail-container { flex: 0 0 85px; height: 85px; margin-right: 12px; overflow: hidden; border-radius: 4px; background: #ddd; }
-        .feed-thumbnail-container img { width: 100%; height: 100%; object-fit: cover; }
-        .feed-content-container { flex: 1; min-width: 0; } /* min-width evita desbordamientos */
+        
+        /* Contenedor de imagen estática */
+        .feed-thumbnail-container { 
+            flex: 0 0 85px; 
+            height: 85px; 
+            margin-right: 12px; 
+            overflow: hidden; 
+            border-radius: 4px; 
+            background: #fff; /* Fondo blanco para logos con transparencia */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .feed-thumbnail-container img { 
+            max-width: 90%; 
+            max-height: 90%; 
+            object-fit: contain; /* Mantiene el logo íntegro sin recortarlo */
+        }
+
+        .feed-content-container { flex: 1; min-width: 0; }
         .feed-title { font-size: 14px; font-weight: bold; margin: 0 0 4px 0; line-height: 1.2; }
         .feed-title a { text-decoration: none; color: #1a1a1a; }
         .feed-title a:hover { color: #2196F3; }
         
-        /* Alineación de meta: Fuente a la izquierda, Fecha a la derecha */
         .feed-meta { 
             font-size: 11px; 
             color: #666; 
@@ -72,6 +90,7 @@
 </div>
 
 <script>
+// CONFIGURACIÓN DE FEEDS
 const config = {
     ciencia: ["https://www.agenciasinc.es/feed/Ciencia"],
     tecnologia: ["https://www.muycomputer.com/feed/"],
@@ -79,13 +98,28 @@ const config = {
     cine: ["https://www.espinof.com/feedburner.xml"]
 };
 
-const sourceNames = {
-    "Agencia SI": "SINC",
-    "Agencia SINC": "SINC",
-    "MUYCOMPUTE": "MUY COMPUTER",
-    "MuyComputer": "MUY COMPUTER",
-    "3DJUEGOS": "3D JUEGOS",
-    "Espinof": "ESPINOF"
+// ASIGNACIÓN DE NOMBRES Y LOGOS ESTÁTICOS
+const sourceData = {
+    "SINC": {
+        keywords: ["AGENCIA SI", "SINC"],
+        name: "SINC",
+        logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgdzVETxx1l4z1lVDMKZCNIoeQaGUUVxbLNw&s"
+    },
+    "MUY COMPUTER": {
+        keywords: ["MUYCOMPUTE", "MUYCOMPUTER"],
+        name: "MUY COMPUTER",
+        logo: "https://www.tpnet.es/wp-content/uploads/2018/09/mc-tecnologia-consumo-content-marketing-video-design-logo.png"
+    },
+    "3D JUEGOS": {
+        keywords: ["3DJUEGOS"],
+        name: "3D JUEGOS",
+        logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4TkCVZaSxmfU-e__gEatDsmp7U8QMTsIFug&s"
+    },
+    "ESPINOF": {
+        keywords: ["ESPINOF"],
+        name: "ESPINOF",
+        logo: "https://yt3.googleusercontent.com/ytc/AIdro_mwyVcXPGLPElADFqCr5xP9g086XmBMYYYbOu9bVagVJc0=s900-c-k-c0x00ffffff-no-rj"
+    }
 };
 
 async function loadCategoryFeeds(urls, elementId) {
@@ -98,14 +132,19 @@ async function loadCategoryFeeds(urls, elementId) {
             if(data.status === 'ok') {
                 return data.items.map(item => {
                     let rawName = data.feed.title || "Fuente";
-                    let cleanName = rawName.split(' - ')[0].trim();
-                    for (let key in sourceNames) {
-                        if (rawName.toUpperCase().includes(key.toUpperCase())) {
-                            cleanName = sourceNames[key];
+                    let finalName = rawName;
+                    let finalLogo = "https://via.placeholder.com/85?text=NEWS";
+
+                    // Identificar fuente y asignar su logo estático
+                    for (let key in sourceData) {
+                        const match = sourceData[key].keywords.some(k => rawName.toUpperCase().includes(k));
+                        if (match) {
+                            finalName = sourceData[key].name;
+                            finalLogo = sourceData[key].logo;
                             break;
                         }
                     }
-                    return {...item, sourceName: cleanName};
+                    return {...item, sourceName: finalName, staticLogo: finalLogo};
                 });
             }
             return [];
@@ -124,12 +163,11 @@ async function loadCategoryFeeds(urls, elementId) {
             const dateObj = new Date(item.pubDate);
             const dateStr = dateObj.toLocaleDateString('es-ES');
             const timeStr = dateObj.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-            const thumb = item.thumbnail || 'https://via.placeholder.com/85?text=NEWS';
             
             html += `
                 <div class="feed-item">
                     <div class="feed-thumbnail-container">
-                        <img src="${thumb}" alt="noticia">
+                        <img src="${item.staticLogo}" alt="${item.sourceName}">
                     </div>
                     <div class="feed-content-container">
                         <h6 class="feed-title">
@@ -144,7 +182,7 @@ async function loadCategoryFeeds(urls, elementId) {
         });
         container.innerHTML = html;
     } catch (err) {
-        document.getElementById(elementId).innerHTML = "<p class='w3-padding'>Error de red.</p>";
+        document.getElementById(elementId).innerHTML = "<p class='w3-padding'>Error de conexión.</p>";
     }
 }
 
