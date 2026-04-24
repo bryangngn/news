@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Noticias: Ciencia, Tech, Juegos y Cine</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <style>
+        body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+        /* Ajuste para que las columnas tengan scroll independiente como en un dashboard */
+        .feed-container { 
+            height: 700px; 
+            overflow-y: auto; 
+            padding-right: 10px;
+        }
+        /* Estilo para las imágenes que puedan venir en los feeds */
+        .feed-item img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        a { text-decoration: none; }
+        a:hover { color: #2196F3; }
+    </style>
+</head>
+<body class="w3-light-grey">
+
+<div class="w3-content" style="max-width:1800px">
+
+<header class="w3-container w3-center w3-padding-32"> 
+  <h1><b>MI DASHBOARD DE NOTICIAS</b></h1>
+  <p>Actualidad personalizada: <span class="w3-tag w3-blue">Ciencia</span> <span class="w3-tag w3-dark-grey">Tecnología</span> <span class="w3-tag w3-red">Videojuegos</span> <span class="w3-tag w3-black">Cine y TV</span></p>
+</header>
+
+<div class="w3-row">
+
+  <div class="w3-col l3 m6 s12">
+    <div class="w3-card-4 w3-margin w3-white">
+      <div class="w3-container w3-blue">
+        <h3>SINC (Ciencia)</h3>
+      </div>
+      <div id="ciencia" class="w3-container feed-container">
+        <p class="w3-padding">Cargando ciencia...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-col l3 m6 s12">
+    <div class="w3-card-4 w3-margin w3-white">
+      <div class="w3-container w3-dark-grey">
+        <h3>Muy Computer</h3>
+      </div>
+      <div id="tecnologia" class="w3-container feed-container">
+        <p class="w3-padding">Cargando tecnología...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-col l3 m6 s12">
+    <div class="w3-card-4 w3-margin w3-white">
+      <div class="w3-container w3-red">
+        <h3>3D Juegos</h3>
+      </div>
+      <div id="videojuegos" class="w3-container feed-container">
+        <p class="w3-padding">Cargando videojuegos...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-col l3 m6 s12">
+    <div class="w3-card-4 w3-margin w3-white">
+      <div class="w3-container w3-black">
+        <h3>Espinof (Cine)</h3>
+      </div>
+      <div id="cine" class="w3-container feed-container">
+        <p class="w3-padding">Cargando cine y TV...</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
+  <p class="w3-center">Adaptado de BryanGNGN - 2024</p>
+</footer>
+
+</div>
+
+<script>
+/**
+ * Función que obtiene el RSS y lo inyecta en el HTML
+ */
+function fetchRSS(url, elementId) {
+    // Usamos rss2json para convertir el XML en un objeto JSON manejable
+    const api_url = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`;
+
+    fetch(api_url)
+        .then(res => res.json())
+        .then(data => {
+            const container = document.getElementById(elementId);
+            if (data.status === 'ok') {
+                let itemsHtml = '';
+                data.items.forEach(item => {
+                    // Limpiamos un poco el contenido si trae etiquetas HTML pesadas
+                    const thumb = item.thumbnail || '';
+                    itemsHtml += `
+                        <div class="w3-padding-16 feed-item">
+                            ${thumb ? `<img src="${thumb}" alt="img">` : ''}
+                            <h5><b><a href="${item.link}" target="_blank">${item.title}</a></b></h5>
+                            <span class="w3-opacity" style="font-size:11px">${new Date(item.pubDate).toLocaleDateString()}</span>
+                            <p style="font-size:13px">${item.description.substring(0, 100).replace(/<[^>]*>?/gm, '')}...</p>
+                        </div>
+                        <hr>`;
+                });
+                container.innerHTML = itemsHtml;
+            } else {
+                container.innerHTML = "<p class='w3-padding'>No se pudo cargar este feed.</p>";
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            document.getElementById(elementId).innerHTML = "<p class='w3-padding'>Error de conexión.</p>";
+        });
+}
+
+// Configuración de tus feeds
+const config = {
+    ciencia: "https://www.agenciasinc.es/feed/Ciencia",
+    tecnologia: "https://www.muycomputer.com/feed/",
+    videojuegos: "https://www.3djuegos.com/feedburner.xml",
+    cine: "https://www.espinof.com/feedburner.xml"
+};
+
+// Llamada inicial
+window.onload = () => {
+    fetchRSS(config.ciencia, 'ciencia');
+    fetchRSS(config.tecnologia, 'tecnologia');
+    fetchRSS(config.videojuegos, 'videojuegos');
+    fetchRSS(config.cine, 'cine');
+};
+</script>
+
+</body>
+</html>
