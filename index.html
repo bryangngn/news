@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>DAILY NEWS</title>
+    <title>DAILY NEWS fix</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -20,35 +20,24 @@
 
         body { background-color: var(--bg-color); color: var(--text-main); font-family: "Raleway", sans-serif; margin-bottom: 70px; }
         
-        /* Efectos visuales de gradiente */
         #col-ciencia { background: linear-gradient(180deg, rgba(13, 71, 161, 0.2) 0%, transparent 100%); }
         #col-tecnologia { background: linear-gradient(180deg, rgba(55, 71, 79, 0.2) 0%, transparent 100%); }
         #col-videojuegos { background: linear-gradient(180deg, rgba(183, 28, 28, 0.2) 0%, transparent 100%); }
         #col-cine { background: linear-gradient(180deg, rgba(50, 50, 50, 0.2) 0%, transparent 100%); }
 
-        .feed-container { 
-            height: 75vh; overflow-y: scroll; padding: 10px; 
-            background-color: var(--card-bg); border-radius: 0 0 8px 8px;
-        }
-
+        .feed-container { height: 75vh; overflow-y: scroll; padding: 10px; background-color: var(--card-bg); border-radius: 0 0 8px 8px; }
         .feed-container::-webkit-scrollbar { width: 4px; }
         .feed-container::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
 
         .feed-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .feed-item:hover { background: rgba(255,255,255,0.05); }
-        
-        .feed-thumbnail-container { 
-            flex: 0 0 65px; height: 65px; margin-right: 12px; 
-            overflow: hidden; border-radius: 4px; background: #fff; 
-            display: flex; align-items: center; justify-content: center;
-        }
+        .feed-thumbnail-container { flex: 0 0 65px; height: 65px; margin-right: 12px; overflow: hidden; border-radius: 4px; background: #fff; display: flex; align-items: center; justify-content: center; }
         .feed-thumbnail-container img { max-width: 85%; max-height: 85%; object-fit: contain; }
 
         .feed-content-container { flex: 1; min-width: 0; }
         .feed-title { font-size: 13px; font-weight: bold; margin: 0 0 4px 0; line-height: 1.2; }
         .feed-title a { text-decoration: none; color: var(--text-main); }
         
-        .feed-meta { font-size: 10px; color: var(--text-dim); display: flex; justify-content: space-between; width: 100%; }
+        .feed-meta { font-size: 10px; color: var(--text-dim); display: flex; justify-content: space-between; }
         .source-tag { font-weight: 800; color: #90caf9; text-transform: uppercase; }
         
         .mobile-nav { display: none; position: fixed; bottom: 0; width: 100%; background: #1a1a1a; border-top: 1px solid #333; z-index: 1000; }
@@ -72,28 +61,25 @@
   <div id="col-ciencia" class="w3-col l3 m12 category-col active w3-margin-bottom">
     <div class="w3-card-4">
       <div class="w3-container" style="background-color: var(--header-ciencia)"><h3 class="w3-center">Ciencia</h3></div>
-      <div id="ciencia" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
+      <div id="ciencia" class="w3-container feed-container"></div>
     </div>
   </div>
-
   <div id="col-tecnologia" class="w3-col l3 m12 category-col w3-margin-bottom">
     <div class="w3-card-4">
       <div class="w3-container" style="background-color: var(--header-tech)"><h3 class="w3-center">Tecnología</h3></div>
-      <div id="tecnologia" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
+      <div id="tecnologia" class="w3-container feed-container"></div>
     </div>
   </div>
-
   <div id="col-videojuegos" class="w3-col l3 m12 category-col w3-margin-bottom">
     <div class="w3-card-4">
       <div class="w3-container" style="background-color: var(--header-juegos)"><h3 class="w3-center">Videojuegos</h3></div>
-      <div id="videojuegos" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
+      <div id="videojuegos" class="w3-container feed-container"></div>
     </div>
   </div>
-
   <div id="col-cine" class="w3-col l3 m12 category-col w3-margin-bottom">
     <div class="w3-card-4">
       <div class="w3-container" style="background-color: var(--header-cine)"><h3 class="w3-center">Cine y TV</h3></div>
-      <div id="cine" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
+      <div id="cine" class="w3-container feed-container"></div>
     </div>
   </div>
 </div>
@@ -109,24 +95,18 @@
 const config = {
     ciencia: ["https://www.agenciasinc.es/feed/Ciencia", "https://noticiasdelaciencia.com/rss/ciencia", "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/ciencia/portada", "https://naukas.com/feed"],
     tecnologia: ["https://www.muycomputer.com/feed/", "https://www.xataka.com/feedburner.xml", "https://www.elespanol.com/rss/omicrono/", "https://computerhoy.20minutos.es/rss/"],
-    videojuegos: ["https://www.3djuegos.com/feedburner.xml", "https://vandal.elespanol.com/xml.cgi", "https://www.eurogamer.es/?format=rss", "https://es.ign.com/feed.xml", "http://feeds.weblogssl.com/vidaextra", "https://www.hobbyconsolas.com/rss/"],
-    cine: ["https://www.espinof.com/feedburner.xml", "https://www.sensacine.com/rss/noticias.xml", "https://www.20minutos.es/rss/cinemania/", "https://www.formulatv.com/xml/formulatv.xml", "https://www.elseptimoarte.net/rss_actualidad.php", "https://feeds.feedburner.com/hello_friki"]
+    videojuegos: ["https://www.3djuegos.com/feedburner.xml", "https://vandal.elespanol.com/xml.cgi", "https://www.eurogamer.es/?format=rss", "https://es.ign.com/feed.xml", "https://www.hobbyconsolas.com/rss/"],
+    cine: ["https://www.espinof.com/feedburner.xml", "https://www.sensacine.com/rss/noticias.xml", "https://www.20minutos.es/rss/cinemania/", "https://www.formulatv.com/xml/formulatv.xml", "https://feeds.feedburner.com/hello_friki"]
 };
 
 const sourceData = {
     "SINC": { keywords: ["SINC"], name: "SINC", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgdzVETxx1l4z1lVDMKZCNIoeQaGUUVxbLNw&s" },
-    "EL PAÍS": { keywords: ["EL PAÍS", "EL PAIS"], name: "EL PAÍS", logo: "https://biblioteca.uva.es/files/2023/10/Logo-El-Pais.png" },
     "XATAKA": { keywords: ["XATAKA"], name: "XATAKA", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGUuJ47JpfkIJcMmSD85KKMkIGSVJz3xO2jw&s" },
-    "3D JUEGOS": { keywords: ["3DJUEGOS"], name: "3D JUEGOS", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4TkCVZaSxmfU-e__gEatDsmp7U8QMTsIFug&s" },
     "VANDAL": { keywords: ["VANDAL"], name: "VANDAL", logo: "https://www.devuego.com/logos/logomedio_4_105.png" },
-    "EUROGAMER": { keywords: ["EUROGAMER"], name: "EUROGAMER", logo: "https://images.seeklogo.com/logo-png/31/1/eurogamer-logo-png_seeklogo-318085.png" },
     "IGN": { keywords: ["IGN"], name: "IGN", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvNxeksaNaDINZq8LtA_6jo6PrcrsJ13YY4IircSfOPw&s" },
-    "VIDA EXTRA": { keywords: ["VIDAEXTRA"], name: "VIDA EXTRA", logo: "https://yt3.googleusercontent.com/tjJ0c66ypMDKUWjlMkRRX0rG97bndxtfYL4Cc4PwpGxGbnnQH4iJVK5Nt4qZgVg201bnK9zoOw=s900-c-k-c0x00ffffff-no-rj" },
-    "HOBBY CONSOLAS": { keywords: ["HOBBYCONSOLAS"], name: "HOBBY CONSOLAS", logo: "https://static-cdn.jtvnw.net/jtv_user_pictures/d59e456b-521b-4bd9-9943-09452d2f479c-profile_image-300x300.png" },
     "CINEMANÍA": { keywords: ["CINEMANIA"], name: "CINEMANÍA", logo: "https://media.muckrack.com/groups/icons/JqoZrqU2_400x400.jpg" },
     "FÓRMULA TV": { keywords: ["FORMULATV"], name: "FÓRMULA TV", logo: "https://yt3.googleusercontent.com/HjTTOC7wpzwYxnQpoWxYUSCs3WrXjwGXkCFl-Nb4U42Riz5TQ52GuZ5bt9ZWWauj53jIumoJ=s900-c-k-c0x00ffffff-no-rj" },
-    "HELLO FRIKI": { keywords: ["HELLO FRIKI"], name: "HELLO FRIKI", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeJ7eRBOQzqOTHJ9MFDxLbuJ_eHv7jzBXT1Q-FHpT8Vw&s" },
-    "EL SÉPTIMO ARTE": { keywords: ["SEPTIMOARTE"], name: "EL SÉPTIMO ARTE", logo: "https://yt3.googleusercontent.com/ytc/AIdro_lUZTIU2h-QKwZryM-3YKiNyud-2O5Eu2ESFrkdxZ8kn5E=s900-c-k-c0x00ffffff-no-rj" }
+    "HELLO FRIKI": { keywords: ["HELLO FRIKI"], name: "HELLO FRIKI", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeJ7eRBOQzqOTHJ9MFDxLbuJ_eHv7jzBXT1Q-FHpT8Vw&s" }
 };
 
 function formatSmartDate(dateStr) {
@@ -142,34 +122,34 @@ function formatSmartDate(dateStr) {
 
 async function loadCategoryFeeds(urls, elementId) {
     let allItems = [];
+    const container = document.getElementById(elementId);
+    container.innerHTML = "<p class='w3-padding'>Cargando...</p>";
+
     const fetchPromises = urls.map(url => 
-        fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}&api_key=your_api_key_optional`)
+        fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`)
         .then(res => res.json())
         .then(data => {
             if(data.status === 'ok') {
                 return data.items.map(item => {
-                    let feedTitle = (data.feed.title || "").toUpperCase();
-                    let finalName = "INFO";
-                    let finalLogo = "https://via.placeholder.com/65/333/fff?text=NEWS";
-                    
-                    for (let key in sourceData) {
-                        if (sourceData[key].keywords.some(k => feedTitle.includes(k) || item.link.toUpperCase().includes(k.replace(" ","")))) {
-                            finalName = sourceData[key].name;
-                            finalLogo = sourceData[key].logo;
-                            break;
-                        }
-                    }
-                    return {...item, sourceName: finalName, staticLogo: finalLogo, timestamp: new Date(item.pubDate).getTime()};
+                    let sourceKey = Object.keys(sourceData).find(key => 
+                        (data.feed.title || "").toUpperCase().includes(key) || 
+                        item.link.toUpperCase().includes(key.replace(" ",""))
+                    );
+                    return {
+                        ...item,
+                        sourceName: sourceKey ? sourceData[sourceKey].name : "INFO",
+                        staticLogo: sourceKey ? sourceData[sourceKey].logo : `https://www.google.com/s2/favicons?sz=64&domain=${new URL(item.link).hostname}`,
+                        timestamp: new Date(item.pubDate).getTime()
+                    };
                 });
             }
             return [];
-        })
+        }).catch(() => [])
     );
 
     const results = await Promise.all(fetchPromises);
-    allItems = results.flat().sort((a, b) => b.timestamp - a.timestamp); // ORDENACIÓN CORREGIDA
+    allItems = results.flat().sort((a, b) => b.timestamp - a.timestamp);
     
-    const container = document.getElementById(elementId);
     container.innerHTML = allItems.map(item => `
         <div class="feed-item">
             <div class="feed-thumbnail-container"><img src="${item.staticLogo}"></div>
@@ -178,7 +158,7 @@ async function loadCategoryFeeds(urls, elementId) {
                 <div class="feed-meta"><span class="source-tag">${item.sourceName}</span><span>${formatSmartDate(item.pubDate)}</span></div>
             </div>
         </div>
-    `).join('');
+    `).join('') || "<p class='w3-padding'>No hay noticias.</p>";
 }
 
 function openTab(catName) {
