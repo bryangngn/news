@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>DAILY NEWS google</title>
+    <title>DAILY NEWS</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <style>
-        /* Paleta de colores Dark */
         :root {
             --bg-color: #121212;
             --card-bg: #1e1e1e;
@@ -23,7 +22,6 @@
         body { background-color: var(--bg-color); color: var(--text-main); font-family: "Raleway", sans-serif; }
         h1,h2,h3,h4,h5,h6 { font-family: "Raleway", sans-serif; color: var(--text-main); }
         
-        /* Contenedor con scroll personalizado */
         .feed-container { height: 750px; overflow-y: scroll; padding-right: 5px; background-color: var(--card-bg); }
         .feed-container::-webkit-scrollbar { width: 6px; }
         .feed-container::-webkit-scrollbar-track { background: #1e1e1e; }
@@ -31,7 +29,6 @@
 
         .feed-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
         
-        /* Thumbnail estático */
         .feed-thumbnail-container { 
             flex: 0 0 85px; 
             height: 85px; 
@@ -52,9 +49,8 @@
         .feed-title a { text-decoration: none; color: var(--text-main); }
         .feed-title a:hover { color: #64b5f6; }
         
-        /* Meta: Fuente a la izquierda, Fecha a la derecha */
         .feed-meta { 
-            font-size: 11px; 
+            font-size: 10px; 
             color: var(--text-dim); 
             display: flex; 
             justify-content: space-between; 
@@ -62,7 +58,7 @@
             width: 100%;
             margin-top: 5px;
         }
-        .source-tag { font-weight: 800; color: #90caf9; text-transform: uppercase; }
+        .source-tag { font-weight: 800; color: #90caf9; text-transform: uppercase; max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         
         .w3-card-4 { background-color: var(--card-bg); border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         .w3-container h3 { font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: white !important; margin: 15px 0; }
@@ -81,36 +77,34 @@
   <div class="w3-col l3 m6 w3-margin-bottom">
     <div class="w3-card-4">
       <div class="w3-container" style="background-color: var(--header-ciencia)"><h3 class="w3-center">Ciencia</h3></div>
-      <div id="ciencia" class="w3-container feed-container"><p class="w3-padding">Cargando feeds...</p></div>
+      <div id="ciencia" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
     </div>
   </div>
 
   <div class="w3-col l3 m6 w3-margin-bottom">
     <div class="w3-card-4">
       <div class="w3-container" style="background-color: var(--header-tech)"><h3 class="w3-center">Tecnología</h3></div>
-      <div id="tecnologia" class="w3-container feed-container"><p class="w3-padding">Cargando feeds...</p></div>
+      <div id="tecnologia" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
     </div>
   </div>
 
   <div class="w3-col l3 m6 w3-margin-bottom">
     <div class="w3-card-4">
       <div class="w3-container" style="background-color: var(--header-juegos)"><h3 class="w3-center">Videojuegos</h3></div>
-      <div id="videojuegos" class="w3-container feed-container"><p class="w3-padding">Cargando feeds...</p></div>
+      <div id="videojuegos" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
     </div>
   </div>
 
   <div class="w3-col l3 m6 w3-margin-bottom">
     <div class="w3-card-4">
       <div class="w3-container" style="background-color: var(--header-cine)"><h3 class="w3-center">Cine y TV</h3></div>
-      <div id="cine" class="w3-container feed-container"><p class="w3-padding">Cargando feeds...</p></div>
+      <div id="cine" class="w3-container feed-container"><p class="w3-padding">Cargando...</p></div>
     </div>
   </div>
 </div>
-
 </div>
 
 <script>
-// CONFIGURACIÓN DE FEEDS
 const config = {
     ciencia: [
         "https://www.agenciasinc.es/feed/Ciencia",
@@ -121,44 +115,20 @@ const config = {
     cine: ["https://www.espinof.com/feedburner.xml"]
 };
 
-// DATA DE FUENTES (Logos estáticos y Nombres limpios)
 const sourceData = {
-    "SINC": { 
-        keywords: ["SINC", "AGENCIA SI"], 
-        name: "SINC", 
-        logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgdzVETxx1l4z1lVDMKZCNIoeQaGUUVxbLNw&s" 
-    },
-    "GOOGLE NEWS": { 
-        keywords: ["GOOGLE NEWS", "GOOGLE NOTICIAS"], 
-        name: "GOOGLE NEWS", 
-        logo: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Google_News_icon.png" 
-    },
-    "MUY COMPUTER": { 
-        keywords: ["MUYCOMPUTE", "MUYCOMPUTER"], 
-        name: "MUY COMPUTER", 
-        logo: "https://www.tpnet.es/wp-content/uploads/2018/09/mc-tecnologia-consumo-content-marketing-video-design-logo.png" 
-    },
-    "3D JUEGOS": { 
-        keywords: ["3DJUEGOS"], 
-        name: "3D JUEGOS", 
-        logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4TkCVZaSxmfU-e__gEatDsmp7U8QMTsIFug&s" 
-    },
-    "ESPINOF": { 
-        keywords: ["ESPINOF"], 
-        name: "ESPINOF", 
-        logo: "https://yt3.googleusercontent.com/ytc/AIdro_mwyVcXPGLPElADFqCr5xP9g086XmBMYYYbOu9bVagVJc0=s900-c-k-c0x00ffffff-no-rj" 
-    }
+    "SINC": { keywords: ["SINC", "AGENCIA SI"], name: "SINC", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgdzVETxx1l4z1lVDMKZCNIoeQaGUUVxbLNw&s" },
+    "GOOGLE NEWS": { keywords: ["GOOGLE NEWS", "GOOGLE NOTICIAS"], name: "GOOGLE NEWS", logo: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Google_News_icon.png" },
+    "MUY COMPUTER": { keywords: ["MUYCOMPUTE", "MUYCOMPUTER"], name: "MUY COMPUTER", logo: "https://www.tpnet.es/wp-content/uploads/2018/09/mc-tecnologia-consumo-content-marketing-video-design-logo.png" },
+    "3D JUEGOS": { keywords: ["3DJUEGOS"], name: "3D JUEGOS", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4TkCVZaSxmfU-e__gEatDsmp7U8QMTsIFug&s" },
+    "ESPINOF": { keywords: ["ESPINOF"], name: "ESPINOF", logo: "https://yt3.googleusercontent.com/ytc/AIdro_mwyVcXPGLPElADFqCr5xP9g086XmBMYYYbOu9bVagVJc0=s900-c-k-c0x00ffffff-no-rj" }
 };
 
-// Función para formatear fechas relativas
 function formatSmartDate(dateStr) {
     const newsDate = new Date(dateStr);
     const today = new Date();
     const yesterday = new Date();
     yesterday.setDate(today.getDate() - 1);
-    
     const timeStr = newsDate.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-
     if (newsDate.toDateString() === today.toDateString()) return `Hoy | ${timeStr}`;
     if (newsDate.toDateString() === yesterday.toDateString()) return `Ayer | ${timeStr}`;
     return `${newsDate.toLocaleDateString('es-ES')} | ${timeStr}`;
@@ -166,25 +136,34 @@ function formatSmartDate(dateStr) {
 
 async function loadCategoryFeeds(urls, elementId) {
     let allItems = [];
-    
     const fetchPromises = urls.map(url => 
         fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`)
         .then(res => res.json())
         .then(data => {
             if(data.status === 'ok') {
                 return data.items.map(item => {
-                    let rawSource = (data.feed.title || "Fuente").toUpperCase();
+                    let rawSource = (data.feed.title || "").toUpperCase();
                     let finalName = "INFO";
                     let finalLogo = "https://via.placeholder.com/85/333/fff?text=NEWS";
+                    let displayTitle = item.title;
 
-                    for (let key in sourceData) {
-                        if (sourceData[key].keywords.some(k => rawSource.includes(k))) {
-                            finalName = sourceData[key].name;
-                            finalLogo = sourceData[key].logo;
-                            break;
+                    if (rawSource.includes("GOOGLE NEWS") || rawSource.includes("GOOGLE NOTICIAS")) {
+                        const titleParts = item.title.split(" - ");
+                        if (titleParts.length > 1) {
+                            finalName = titleParts.pop().trim().toUpperCase();
+                            displayTitle = titleParts.join(" - ");
+                        } else { finalName = "GOOGLE NEWS"; }
+                        finalLogo = sourceData["GOOGLE NEWS"].logo;
+                    } else {
+                        for (let key in sourceData) {
+                            if (sourceData[key].keywords.some(k => rawSource.includes(k))) {
+                                finalName = sourceData[key].name;
+                                finalLogo = sourceData[key].logo;
+                                break;
+                            }
                         }
                     }
-                    return {...item, sourceName: finalName, staticLogo: finalLogo};
+                    return {...item, title: displayTitle, sourceName: finalName, staticLogo: finalLogo};
                 });
             }
             return [];
@@ -193,34 +172,21 @@ async function loadCategoryFeeds(urls, elementId) {
 
     try {
         const results = await Promise.all(fetchPromises);
-        allItems = results.flat();
-        // Ordenar por fecha de publicación (más nuevo primero)
-        allItems.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
-
+        allItems = results.flat().sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
         const container = document.getElementById(elementId);
         let html = '';
-        
         allItems.forEach(item => {
             html += `
                 <div class="feed-item">
-                    <div class="feed-thumbnail-container">
-                        <img src="${item.staticLogo}" alt="${item.sourceName}">
-                    </div>
+                    <div class="feed-thumbnail-container"><img src="${item.staticLogo}" alt="logo"></div>
                     <div class="feed-content-container">
-                        <h6 class="feed-title">
-                            <a href="${item.link}" target="_blank">${item.title}</a>
-                        </h6>
-                        <div class="feed-meta">
-                            <span class="source-tag">${item.sourceName}</span>
-                            <span>${formatSmartDate(item.pubDate)}</span>
-                        </div>
+                        <h6 class="feed-title"><a href="${item.link}" target="_blank">${item.title}</a></h6>
+                        <div class="feed-meta"><span class="source-tag">${item.sourceName}</span><span>${formatSmartDate(item.pubDate)}</span></div>
                     </div>
                 </div>`;
         });
-        container.innerHTML = html;
-    } catch (err) {
-        document.getElementById(elementId).innerHTML = "<p class='w3-padding'>Error de conexión.</p>";
-    }
+        container.innerHTML = html || "<p class='w3-padding'>Sin noticias.</p>";
+    } catch (err) { document.getElementById(elementId).innerHTML = "<p class='w3-padding'>Error de conexión.</p>"; }
 }
 
 window.onload = () => {
@@ -230,6 +196,5 @@ window.onload = () => {
     loadCategoryFeeds(config.cine, 'cine');
 };
 </script>
-
 </body>
 </html>
