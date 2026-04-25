@@ -23,6 +23,29 @@
 
         body { background-color: var(--bg-color); color: var(--text-main); font-family: "Raleway", sans-serif; margin-bottom: 70px; }
         
+        /* TÍTULO MEJORADO */
+        .main-title {
+            font-weight: 900;
+            letter-spacing: 12px;
+            font-size: 42px;
+            margin: 0;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #fff 20%, var(--accent-blue) 40%, var(--accent-blue) 60%, #fff 80%);
+            background-size: 200% auto;
+            color: #000;
+            background-clip: text;
+            text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 4s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        @media (max-width: 600px) { .main-title { font-size: 28px; letter-spacing: 6px; } }
+
         .feed-container { 
             height: 75vh; 
             overflow-y: scroll; 
@@ -110,9 +133,8 @@
 <body>
 
 <div class="w3-content" style="max-width:1800px">
-    <header class="w3-container w3-center w3-padding-32"> 
-        <h1 style="font-weight: 900; letter-spacing: 5px; font-size: 28px; color: #fff;"><b>DAILY NEWS</b></h1>
-        <p style="color: var(--text-dim); font-size: 12px; margin-top: -10px;">Actualización en tiempo real</p>
+    <header class="w3-container w3-center w3-padding-48"> 
+        <h1 class="main-title">Daily News</h1>
     </header>
 
     <div class="w3-row-padding">
