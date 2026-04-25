@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Daily News</title>
+    <title>Daily News fix</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -239,12 +239,15 @@ async function loadCategoryFeeds(urls, elementId) {
                     let finalName = "INFO";
                     let finalLogo = "https://via.placeholder.com/85/333/fff?text=NEWS";
                     
-                    // Prioridad 1: Cinemanía (dentro de 20minutos)
+                    // PRIORIDADES CRÍTICAS
                     if (itemLink.includes("CINEMANIA") || feedTitle.includes("CINEMANÍA")) {
                         finalName = sourceData["CINEMANÍA"].name;
                         finalLogo = sourceData["CINEMANÍA"].logo;
                     } 
-                    // Prioridad 2: Marcas específicas de El Español
+                    else if (itemLink.includes("COMPUTERHOY")) {
+                        finalName = sourceData["COMPUTER HOY"].name;
+                        finalLogo = sourceData["COMPUTER HOY"].logo;
+                    }
                     else if (itemLink.includes("OMICRONO")) {
                         finalName = sourceData["OMICRONO"].name;
                         finalLogo = sourceData["OMICRONO"].logo;
@@ -257,12 +260,11 @@ async function loadCategoryFeeds(urls, elementId) {
                         finalName = sourceData["EL ANDROIDE LIBRE"].name;
                         finalLogo = sourceData["EL ANDROIDE LIBRE"].logo;
                     }
-                    // Prioridad 3: 20 Minutos (detección directa)
                     else if (itemLink.includes("20MINUTOS.ES")) {
                         finalName = sourceData["20 MINUTOS"].name;
                         finalLogo = sourceData["20 MINUTOS"].logo;
                     }
-                    // Prioridad 4: Resto del diccionario
+                    // RESTO DEL DICCIONARIO
                     else {
                         for (let key in sourceData) {
                             if (sourceData[key].keywords.some(k => feedTitle.includes(k) || feedLink.includes(k) || itemLink.includes(k))) {
