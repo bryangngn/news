@@ -116,8 +116,9 @@
 
         .mobile-nav button {
             flex: 1; padding: 12px 0; border: none; background: none;
-            color: var(--text-dim); font-size: 9px; text-transform: uppercase;
+            color: var(--text-dim); font-size: 8.5px; text-transform: uppercase;
             font-weight: bold; cursor: pointer; transition: 0.3s;
+            line-height: 1;
         }
 
         .mobile-nav button.active { color: var(--accent-blue); background: rgba(255,255,255,0.05); }
@@ -182,16 +183,16 @@
 
 <nav class="mobile-nav">
   <button onclick="openTab('ciencia')" id="btn-ciencia" class="active">
-    <i class="fas fa-microscope" style="font-size: 16px; display: block; margin-bottom: 2px;"></i>Ciencia
+    <i class="fas fa-microscope" style="font-size: 16px; display: block; margin-bottom: 4px;"></i>Ciencia
   </button>
   <button onclick="openTab('tecnologia')" id="btn-tecnologia">
-    <i class="fas fa-microchip" style="font-size: 16px; display: block; margin-bottom: 2px;"></i>Tech
+    <i class="fas fa-microchip" style="font-size: 16px; display: block; margin-bottom: 4px;"></i>Tecnología
   </button>
   <button onclick="openTab('videojuegos')" id="btn-videojuegos">
-    <i class="fas fa-gamepad" style="font-size: 16px; display: block; margin-bottom: 2px;"></i>Juegos
+    <i class="fas fa-gamepad" style="font-size: 16px; display: block; margin-bottom: 4px;"></i>Videojuegos
   </button>
   <button onclick="openTab('cine')" id="btn-cine">
-    <i class="fas fa-film" style="font-size: 16px; display: block; margin-bottom: 2px;"></i>Cine
+    <i class="fas fa-film" style="font-size: 16px; display: block; margin-bottom: 4px;"></i>Cine y TV
   </button>
 </nav>
 
