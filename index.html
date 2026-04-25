@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Daily News 2</title>
+    <title>Daily News</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -177,7 +177,7 @@ const sourceData = {
     "SINC": { keywords: ["AGENCIASINC"], name: "SINC", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgdzVETxx1l4z1lVDMKZCNIoeQaGUUVxbLNw&s" },
     "EL PAÍS": { keywords: ["ELPAIS.COM"], name: "EL PAÍS", logo: "https://biblioteca.uva.es/files/2023/10/Logo-El-Pais.png" },
     "NCYT": { keywords: ["NOTICIASDELACIENCIA"], name: "NCYT", logo: "https://yt3.googleusercontent.com/Z0bnKMwa2DOrPvtVUhpzuWfCNrzTIfjFhGukHh2xg4XnQhQsOLAx5fswoSrIolQHBPMGd0CY374=s900-c-k-c0x00ffffff-no-rj" },
-    "20 MINUTOS": { keywords: ["20MINUTOS.ES/RSS/CIENCIA", "20MINUTOS.ES/RSS/TECNOLOGIA"], name: "20 MINUTOS", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/20_minutos.svg/330px-20_minutos.svg.png" },
+    "20 MINUTOS": { keywords: ["20MINUTOS.ES"], name: "20 MINUTOS", logo: "https://upload.wikimedia.org/wikipedia/commons/0/06/20_minutos.svg" },
     "SCIENTIAS": { keywords: ["SCIENTIAS.NET"], name: "SCIENTIAS", logo: "https://scientias.net/wp-content/uploads/2021/04/cropped-logo-scientias-32x32.png" },
     "ABC": { keywords: ["ABC.ES"], name: "ABC", logo: "https://play-lh.googleusercontent.com/1BHz5zmBVutix7HhBg6V2MHAPpLb2iEbypKGuXsgirirab21ZrN-hlypP72q0eVNltLkbBw0fBImuUzi6G1BeQ=w240-h480-rw" },
     "EL MUNDO": { keywords: ["ELMUNDO.ES"], name: "EL MUNDO", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwggel-auw4f-Csw1g-mGW-XC8_NzY5As23Q&s" },
@@ -257,7 +257,12 @@ async function loadCategoryFeeds(urls, elementId) {
                         finalName = sourceData["EL ANDROIDE LIBRE"].name;
                         finalLogo = sourceData["EL ANDROIDE LIBRE"].logo;
                     }
-                    // Prioridad 3: Resto del diccionario
+                    // Prioridad 3: 20 Minutos (detección directa)
+                    else if (itemLink.includes("20MINUTOS.ES")) {
+                        finalName = sourceData["20 MINUTOS"].name;
+                        finalLogo = sourceData["20 MINUTOS"].logo;
+                    }
+                    // Prioridad 4: Resto del diccionario
                     else {
                         for (let key in sourceData) {
                             if (sourceData[key].keywords.some(k => feedTitle.includes(k) || feedLink.includes(k) || itemLink.includes(k))) {
