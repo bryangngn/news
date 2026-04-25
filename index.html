@@ -17,7 +17,7 @@
             --header-ciencia: #0d47a1;
             --header-tech: #37474f;
             --header-juegos: #b71c1c;
-            --header-cine: #000000;
+            --header-cine: #2e7d32; /* CAMBIO: De negro a Verde Esmeralda */
         }
 
         body { background-color: var(--bg-color); color: var(--text-main); font-family: "Raleway", sans-serif; margin-bottom: 70px; }
@@ -48,7 +48,7 @@
         .source-tag { font-weight: 800; color: #90caf9; text-transform: uppercase; }
         
         .w3-card-4 { border: none; overflow: hidden; border-radius: 8px; }
-        .w3-container h3 { font-weight: bold; text-transform: uppercase; font-size: 15px; margin: 15px 0; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .w3-container h3 { font-weight: bold; text-transform: uppercase; font-size: 15px; margin: 15px 0; display: flex; align-items: center; justify-content: center; gap: 10px; color: #fff; }
 
         .mobile-nav {
             display: none;
@@ -82,7 +82,7 @@
         .mobile-nav button.active {
             color: #fff;
             background: #252525;
-            border-top: 3px solid #2196F3;
+            border-top: 3px solid #4caf50; /* Línea verde para el botón activo en móvil */
         }
 
         @media (max-width: 992px) {
@@ -160,7 +160,7 @@
 </nav>
 
 <script>
-// (El resto del script permanece igual para mantener la lógica de filtros y fuentes que ya perfeccionamos)
+// Manteniendo la configuración de feeds y lógica de filtrado previa
 const config = {
     ciencia: [
         "https://www.agenciasinc.es/feed/Ciencia",
